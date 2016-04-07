@@ -2,19 +2,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="jquery-1.12.0.js"></script>
-<link rel="stylesheet" type="text/css" href="../style.css">
-<link rel="stylesheet" href="jquery-ui.min.css">
-<script src="jquery-ui.min.js"></script>
-<script src="jquerysearch.js"></script>
+<script src="/datingWebsite/jquery-1.12.0.js"></script>
+<link rel="stylesheet" type="text/css" href="/datingWebsite/style.css">
+<link rel="stylesheet" href="/datingWebsite/jquery-ui.min.css">
+<script src="/datingWebsite/jquery-ui.min.js"></script>
+<script src="/datingWebsite/jquerysearch.js"></script>
 <title>Datadateorsomething</title>
 </head>
 <body>
 <div class="header">
+<a href="/datingWebsite/index.php/home" class="home" >WebsiteName</a>
 <div class="menu">
-<a href="Homepage.html"><span>temp home</span></a>
-<a href="login.html"><span>log in!</span></a>
-<a href="register.html"><span>Register!</span></a>
+<a href="/datingWebsite/index.php/register"><span>Register</span></a>
 </div>
 </div>
 
@@ -25,9 +24,9 @@
 <form action="verifylogin" method="post" accept-charset="utf-8">
 <input type='hidden' name='submitted' id='submitted' value='1'/>
 
-<label for='username'>Username:</label>
+<label for='email'>Email:</label>
 <br>
-<input type='text' name='username' id='username'  maxlength="50" />
+<input type='email' name='email' id='email'  maxlength="100" />
 <br>
 <label for='password'>Password:</label>
 <br>
