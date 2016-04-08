@@ -1,42 +1,43 @@
-
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<script src="/datingWebsite/jquery-1.12.0.js"></script>
-<link rel="stylesheet" type="text/css" href="/datingWebsite/style.css">
-<link rel="stylesheet" href="/datingWebsite/jquery-ui.min.css">
-<script src="/datingWebsite/jquery-ui.min.js"></script>
-<script src="/datingWebsite/jquerysearch.js"></script>
-
-<title>Datadateorsomething</title>
-</head>
-<body>
-<div class="header">
-	<a href="/datingWebsite/index.php/home" class="home" >WebsiteName</a>
-	<div class="menu">
-		<a href="/datingWebsite/index.php/login"><span>Login</span></a>
-	</div>
-</div>
-
 <div class="content">
-	<form method="post" action="form3.php">
-		<label for='firstname' class='labelname'>First name:</label> 
-		<label for='lastname'>Last name:</label>
-		<br>
-		<input type='text' name='firstname' id='firstname' maxlength="50" />
-		<input type='text' name='lastname' id='lastname' maxlength="50" />
-		<br>
-		<label for='email'>Email address:</label>
-		<br>
-		<input type='email' name='email' id='email' maxlength="100" />
-		<br>
+	<form method="post" action="register/firstStep" class="register">
+	<div class='registerwrapper'>
+		<div class='registerForm'>
+			nickname/alias <br>
+			<input type='text' name='nickname' id='nickname' required/> <br>
+		
+			full name<br>
+			<input type='text' name='fullname' id='fullname' required/> <br>
+	
+			Email address<br>
+			<input type='email' name='email' id='email' required/> <br>
+		
+			password:<br>
+			<input type='password' name='password' id='password' required/>
+		</div>
+		<div class='registerForm'>
+			birthday <br>
+			<input type='text' name='day' id='day' maxlength='2' size='4' min=0 placeholder='day' required/>
+			<input type='text' name='month' id='month' maxlength='2' size='4' placeholder='month' required/>
+			<input type='text' name='year' id='year' maxlength='4' size='4' placeholder='year' required/>
+			<br>
+			I am a:<br>
+			<input type='radio' name='gender' value='Man' required checked> Man
+			<input type='radio' name='gender' value='Woman' required> Woman <br>
+			looking for: <br>
+			<input type='radio' name='interest' required> Man
+			<input type='radio' name='interest' required checked> Woman
+			<input type='radio' name='interest' required> Both
+			<p>slider here!</p>
+			<input type='text' readonly name='age' value='5' required>
+			<p> dropdown with checkboxes here! </p>
+			<input type='text' readonly name='brands' value='Pepsi' required>
+			<br>
+		</div>
+		<div class='descriptionForm'>
+		tell us something about you! <br>
+		<input type='text' id='userDescription' name='description'>
 		<input type="submit" value="Go To Step 2">
+		</div>
+		</div>
 	</form>
-	<?php 
-	echo $this->session->userdata('logged_in');
-	?>
 </div>
-</body>
-</html>

@@ -5,14 +5,14 @@ class Home extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
+		$this->load->library('session');
 	}
 	
 	function index()
 	{	
 		if($this -> session -> userdata('logged_in')){
-			$session_data = $this->session->userdata('logged_in');
-			$data['username'] = $session_data['username'];
-			$data['loggedin'] = TRUE;
+			$data['loggedin'] = $this->session->userdata('logged_in');
+			$data['email'] = $this->session->userdata('email');
 			
 		}else{
 			$data['loggedin'] = FALSE;

@@ -27,6 +27,7 @@ if(session_id() == ''){
 		echo '<a href="/datingWebsite/index.php/register"><span>Register</span></a>';
 		}else{
 		echo '<a href="/datingWebsite/index.php/home/logout">Logout</a>';
+		echo $email;
 		}
 		?>
 	</div>

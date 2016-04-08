@@ -47,7 +47,6 @@ body {
 .personalityBoxes{
 	float:left;
 	display:inline-block;
-	background-color:yellow;
 }
 
 #slider-range{
@@ -77,26 +76,20 @@ h2{
 	font-weight:400;
 }
 
-#email, #password{
+
+.registerForm input[type='text'],[type='email'],[type='password']{
 	border:1px solid gray;
 	border-radius:3px;
 	height:2em;
-	width:60%;
 	margin:5px 0;
 	box-shadow: inset 0 1px 3px rgba(0,0,0,.2);
 	background:white;
 	padding:1px 5px;
 }
 
-#firstname, #lastname{
-	border:1px solid gray;
-	border-radius:3px;
-	height:2em;
-	width:29.5%;
-	margin:5px 0;
-	box-shadow: inset 0 1px 3px rgba(0,0,0,.2);
-	background:white;
-	padding:1px 5px;
+#userDescription{
+	width:100%;
+	height:5em;
 }
 
 #submit{
@@ -127,6 +120,29 @@ h2{
 	height:36px;
 	margin:0px 0px;
 }
+
+.register{
+	margin:0 10%;
+}
+
+.registerwrapper{
+	border:1px solid gray;
+	border-radius:4px;
+	float:left;
+}
+
+.registerForm{
+	float:left;
+	display:inline-block;
+	width:auto;
+	padding:10px;
+}
+.descriptionForm{
+	display:block;
+	clear:both;
+	padding:10px;
+}
+
 
 label{
 	font-size:18px;

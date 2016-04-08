@@ -6,12 +6,13 @@ class VerifyLogin extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('user','',TRUE);
+		$this->load->library('session');
 	}
 	
 	function index()
 	{
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('email', 'email', 'trim|required');
    		$this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_database');
 		
    		if($this->form_validation->run() == FALSE){
@@ -26,19 +27,20 @@ class VerifyLogin extends CI_Controller {
 	}
 	
 	function check_database($password){
-		$username = $this->input->post('username');
-		$result = $this->user->login($username,$password);
+		$email = $this->input->post('email');
+		$result = $this->user->login($email,$password);
 		
 		if($result){
 			$sess_array = array();
 			foreach($result as $row){
-				$sess_array = array('id' => $row ->id, 'username' => $row->username);
-				$this->session->set_userdata('logged_in',$sess_array);
+				//$sess_array = array('id' => $row ->id, 'email' => $row->email);
+				$this->session->set_userdata('logged_in',TRUE);
+				$this->session->set_userdata('email',$row->email);
 			}
 			return TRUE;
 		}
 		else{
-			$this -> form_validation->set_message('check_database','Invalid username/password');
+			$this -> form_validation->set_message('check_database','Invalid email/password');
 			return FALSE;
 		}
 	}
