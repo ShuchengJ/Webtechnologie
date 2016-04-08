@@ -153,8 +153,46 @@ class Register extends CI_Controller {
 	}
 	
 	function calcPersonality($input){
-		return array('q'=>'banaan',
-					 'p'=>'kaas'
+		$ei = 50;
+		$ns = 50;
+		$tf = 50;
+		$jp = 50;
+		for ($x = 1; $x < 6; $x++) {
+			$question = "v".$x;
+			$answer = $input[$question];
+			if($answer == "a")
+				$ei += 10;
+			elseif ($answer == "b")
+				$ei -= 10;
+		}
+		for ($x = 6; $x < 10; $x++) {
+			$question = "v".$x;
+			$answer = $input[$question];
+			if($answer == "a")
+				$ns += 12.5;
+			elseif ($answer == "b")
+			$ns -= 12.5;
+		}
+		for ($x = 10; $x < 14; $x++) {
+			$question = "v".$x;
+			$answer = $input[$question];
+			if($answer == "a")
+				$tf += 12.5;
+			elseif ($answer == "b")
+				$tf -= 12.5;
+		}
+		for ($x = 14; $x < 20; $x++) {
+			$question = "v".$x;
+			$answer = $input[$question];
+			if($answer == "a")
+				$jp += 8.3333333333333;
+			elseif ($answer == "b")
+				$jp -= 8.3333333333333;
+		}
+		return array('ei'=>$ei,
+					 'ns'=>$ns,
+					 'tf'=>$tf,
+					 'jp'=>$jp
 		);
 	}
 	

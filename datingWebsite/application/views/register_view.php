@@ -12,7 +12,7 @@
 			<input type='email' name='email' id='email' required/> <br>
 		
 			password:<br>
-			<input type='password' name='password' id='password' required/>
+			<input type='password' name='password' id='password' minlength='4' required/>
 		</div>
 		<div class='registerForm'>
 			birthday <br>
