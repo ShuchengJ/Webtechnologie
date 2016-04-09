@@ -2,11 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Register extends CI_Controller {
-
+	
 	function __construct(){
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('user','',TRUE);
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
 	}
 	
 	function index()
@@ -17,11 +19,13 @@ class Register extends CI_Controller {
 		$this->load->view('header_view',$data);
 		if(null == ($this->session->userdata('register_step'))){
 			$this->session->set_userdata('register_step','1');
+			$this->session->set_userdata('error',array('error'=>false));
 		}
 		
+		$error = $this->session->userdata('error');
 		$step = $this->session->userdata('register_step');
 		switch ($step){
-			case 1: $this->load->view('register_view'); break;
+			case 1: $this->load->view('register_view',$error); break;
 			case 2: $this->load->view('register2_view',$this->generateQuestions()); break;
 			case 3: $this->load->view('register3_view'); break;
 			default: $this->session->set_userdata('register_step','1');
@@ -29,6 +33,8 @@ class Register extends CI_Controller {
 	}
 	
 	function nextStep(){
+		if($this->session->userdata('error'))
+			redirect('register','auto');
 		$stepNumber = $this->session->userdata('register_step');
 		$this->session->set_userdata('register_step',$stepNumber + 1);
 		redirect('register','auto');
@@ -49,8 +55,17 @@ class Register extends CI_Controller {
 				'age'=>$this->input->post('age'),
 				'brands'=>$this->input->post('brands')
 				);
-		$this->session->set_userdata('userData',$userData);
+		
+		if ($this->form_validation->run()){
+			$this->session->set_userdata('error',array('error'=>false));
+			$this->session->set_userdata('userData',$userData);
+		}
+		else 
+		{
+			$this->session->set_userdata('error',array('error'=>true));
+		}
 		$this->nextStep();
+		
 	}
 	
 	function secondStep(){

@@ -31,7 +31,7 @@ body {
 
 .content{
 	background-color:white;
-	height:100%;
+	overflow: auto;
 	margin:0% 20%;
 	padding-top:30px;
 	padding-bottom:100px;
@@ -133,7 +133,8 @@ h2{
 .registerwrapper{
 	border:1px solid gray;
 	border-radius:4px;
-	float:left;
+	display: table;
+  	margin: auto;
 }
 
 .registerForm{
@@ -159,4 +160,9 @@ label{
 
 .hidden{
 	display:none;
+}
+
+.error{
+	color:red;
+	text-align:center;
 }

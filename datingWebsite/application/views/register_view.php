@@ -1,4 +1,9 @@
 <div class="content">
+
+	<?php
+	if($error)
+		echo '<p class="error">Email already in use.</p>';
+	?>
 	<form method="post" action="register/firstStep" class="register">
 	<div class='registerwrapper'>
 		<div class='registerForm'>
