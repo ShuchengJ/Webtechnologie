@@ -29,9 +29,9 @@
 			<input type='radio' name='gender' value='Man' required checked> Man
 			<input type='radio' name='gender' value='Woman' required> Woman <br>
 			looking for: <br>
-			<input type='radio' name='interest' required> Man
-			<input type='radio' name='interest' required checked> Woman
-			<input type='radio' name='interest' required> Both
+			<input type='radio' name='interest' value='Man' required> Man
+			<input type='radio' name='interest' value='Woman' required checked> Woman
+			<input type='radio' name='interest' value='Both' required> Both
 			<p>slider here!</p>
 			<input type='text' readonly name='age' value='5' required>
 			<p> dropdown with checkboxes here! </p>
@@ -39,8 +39,9 @@
 			<br>
 		</div>
 		<div class='descriptionForm'>
-		tell us something about you! <br>
-		<input type='text' id='userDescription' name='description'>
+		Tell us something about you! <br>
+		<textarea name='description' rows="5" cols="60"></textarea>
+		<br>
 		<input type="submit" value="Go To Step 2">
 		</div>
 		</div>

@@ -22,18 +22,19 @@ class Register extends CI_Controller {
 			$this->session->set_userdata('error',array('error'=>false));
 		}
 		
-		$error = $this->session->userdata('error');
 		$step = $this->session->userdata('register_step');
 		switch ($step){
-			case 1: $this->load->view('register_view',$error); break;
+			case 1: $error = $this->session->userdata('error'); 
+				$this->load->view('register_view',$error); break;
 			case 2: $this->load->view('register2_view',$this->generateQuestions()); break;
-			case 3: $this->load->view('register3_view'); break;
+			case 3: $personality = $this->session->userdata('userData')['personality'];
+				$this->load->view('register3_view',$personality); break;
 			default: $this->session->set_userdata('register_step','1');
 		}
 	}
 	
 	function nextStep(){
-		if($this->session->userdata('error'))
+		if($this->session->userdata('error')['error'])
 			redirect('register','auto');
 		$stepNumber = $this->session->userdata('register_step');
 		$this->session->set_userdata('register_step',$stepNumber + 1);
@@ -53,7 +54,8 @@ class Register extends CI_Controller {
 				'gender'=>$this->input->post('gender'),
 				'interest'=>$this->input->post('interest'),
 				'age'=>$this->input->post('age'),
-				'brands'=>$this->input->post('brands')
+				'brands'=>$this->input->post('brands'),
+				'description'=>$this->input->post('description')
 				);
 		
 		if ($this->form_validation->run()){
@@ -61,9 +63,7 @@ class Register extends CI_Controller {
 			$this->session->set_userdata('userData',$userData);
 		}
 		else 
-		{
 			$this->session->set_userdata('error',array('error'=>true));
-		}
 		$this->nextStep();
 		
 	}
@@ -146,7 +146,7 @@ class Register extends CI_Controller {
 				'v15' => ['n'=>'15',
 				'a'=>'Ik plan alles, met een to-do lijstje in mijn hand.',
 				'b'=>'Ik wacht tot er meerdere idee&eumln opborrelen en kies dan on-the-fly wat te doen.',
-				'c'=>'k zit er eigenlijk tussenin.'],
+				'c'=>'Ik zit er eigenlijk tussenin.'],
 				'v16' => ['n'=>'16',
 				'a'=>'Ik houd van het afronden van projecten.',
 				'b'=>'Ik houd van het opstarten van projecten.',

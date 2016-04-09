@@ -22,10 +22,44 @@ class User extends CI_Model {
 	
 	function register($userData){
 		//just name and password for now
+		
+		$nickname = $userData['nickname'];
+		$fullname = $userData['fullname'];
 		$email = $userData['email'];
 		$password = MD5($userData['password']);
-		$pdata = $userData['personality']['q'];
-		$statement = 'INSERT INTO users (email,password,q) VALUES ('.$this->db->escape($email).', '.$this->db->escape($password).','.$this->db->escape($pdata).')';
+		$day = $userData['day'];
+		$month = $userData['month'];
+		$year = $userData['year'];
+		$gender = $userData['gender'];
+		$interest = $userData['interest'];
+		$age = $userData['age'];
+		$brands = $userData['brands'];
+		$description = $userData['description'];
+		$ei = $userData['personality']['ei'];
+		$ns = $userData['personality']['ns'];
+		$tf = $userData['personality']['tf'];
+		$jp = $userData['personality']['jp'];
+		
+		$statement = 'INSERT INTO users (nickname,fullname,email,password,day,month,year,
+				gender,interest,age,brands,description,ei,ns,tf,jp) 
+				
+				VALUES ('.$this->db->escape($nickname).',
+						'.$this->db->escape($fullname).',
+						'.$this->db->escape($email).', 
+						'.$this->db->escape($password).',
+						'.$this->db->escape($day).',
+						'.$this->db->escape($month).',
+						'.$this->db->escape($year).',
+						'.$this->db->escape($gender).',
+						'.$this->db->escape($interest).',
+						'.$this->db->escape($age).',
+						'.$this->db->escape($brands).',
+						'.$this->db->escape($description).',
+						'.$this->db->escape($ei).',
+						'.$this->db->escape($ns).',
+						'.$this->db->escape($tf).',
+						'.$this->db->escape($jp).')';
+		
 		$query = $this->db->query($statement);
 		
 		return $query;

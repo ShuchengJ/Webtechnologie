@@ -1,10 +1,9 @@
 <div class="content">
 
 	<?php
-	$userData = $this->session->userdata('userData');
 	$type = "(";
 	echo "You are ";
-	if($userData['ei'] < 49){
+	if($ei < 49){
 		echo "Extraversion ";
 		$type .= "E";
 	}
@@ -12,7 +11,7 @@
 		echo "Introversion ";
 		$type .= "I";
 	}
-	if($userData['ns'] < 49){
+	if($ns < 49){
 		echo "Intuition  ";
 		$type .= "N";
 	}
@@ -20,7 +19,7 @@
 		echo "Sensing ";
 		$type .= "S";
 	}
-	if($userData['tf'] < 49){
+	if($tf < 49){
 		echo "Thinking ";
 		$type .= "T";
 	}
@@ -28,7 +27,7 @@
 		echo "Feeling ";
 		$type .= "F";
 	}
-	if($userData['jp'] < 49){
+	if($jp < 49){
 		echo "Judging ";
 		$type .= "J";
 	}
