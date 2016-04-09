@@ -14,7 +14,7 @@
 <div class="header">
 	<a href="/datingWebsite/index.php/home" class="home" >WebsiteName</a>
 	<div class="menu">
-		<a href="/datingWebsite/index.php/login"><span>Login</span></a>
+		<a href="/datingWebsite/index.php/login" class="button"><span>Login</span></a>
 	</div>
 </div>
 </body>

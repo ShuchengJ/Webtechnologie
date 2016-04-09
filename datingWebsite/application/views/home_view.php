@@ -23,10 +23,10 @@ if(session_id() == ''){
 	<div class="menu">
 		<?php 
 		if(!$loggedin){
-		echo '<a href="/datingWebsite/index.php/login"><span>Login</span></a>';
-		echo '<a href="/datingWebsite/index.php/register"><span>Register</span></a>';
+		echo '<a href="/datingWebsite/index.php/login" class="button"><span>Login</span></a>';
+		echo '<a href="/datingWebsite/index.php/register" class="button"><span>Register</span></a>';
 		}else{
-		echo '<a href="/datingWebsite/index.php/home/logout">Logout</a>';
+		echo '<a href="/datingWebsite/index.php/home/logout" class="button">Logout</a>';
 		echo $email;
 		}
 		?>

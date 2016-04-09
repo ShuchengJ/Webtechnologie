@@ -1,6 +1,6 @@
 <div class="content">
 
-	do the following test to see what personality type thingy you are!
+	<h2>Do the following personality test to see what personalitytype you are!</h2>
 	<form method="post" action="register/secondStep">
 		<?php 
 		$indices = range(1, 19);

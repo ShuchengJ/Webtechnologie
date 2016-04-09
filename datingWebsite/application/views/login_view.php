@@ -13,7 +13,7 @@
 <div class="header">
 <a href="/datingWebsite/index.php/home" class="home" >WebsiteName</a>
 <div class="menu">
-<a href="/datingWebsite/index.php/register"><span>Register</span></a>
+<a href="/datingWebsite/index.php/register" class="button"><span>Register</span></a>
 </div>
 </div>
 
