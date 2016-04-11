@@ -18,7 +18,10 @@
 		
 			Password:<br>
 			<input type='password' name='password' id='password' minlength='4' required/>
+			
 		</div>
+		
+		
 		<div class='registerForm'>
 			Birthday <br>
 			<input type='number' name='day' id='day' maxlength='2' size='4' min="1" max="31" placeholder='day' required/>
@@ -50,11 +53,60 @@
 			</script>
 			
 			<input id='amount' type='text' readonly name='age' value='18 - 25' required>
-			<p> dropdown with checkboxes </p>
-			<input type='text' readonly name='brands' value='Pepsi' required>
-			<br>
 		</div>
-		<div class='descriptionForm'>
+		
+		
+		<div  class='descriptionForm'>
+		Choose your favorite brands: <br>
+		<dl class="dropdown"> 
+  
+    		<dt>
+    		<a href="#">
+      			<span class="showtext">Select here</span>   
+    		</a>
+    		</dt>
+  
+    		<dd>
+        		<div class="listofbrands">
+           			<ul>
+               			<li>
+                   			<input type="checkbox" value="Coca-Cola" />Coca-Cola</li>
+               			<li>
+                   			<input type="checkbox" value="Pepsi" />Pepsi</li>
+           			</ul>
+        		</div>
+    		</dd>
+		</dl>
+			
+		<script>
+			$(".dropdown dt a").on('click', function() {
+				  $(".dropdown dd ul").slideToggle('fast');
+			});
+
+			function getSelectedValue(id) {
+				 return $("#" + id).find("dt a span.value").html();
+			}
+
+			$('.listofbrands input[type="checkbox"]').on('click', function() {
+
+				 var title = $(this).closest('.listofbrands').find('input[type="checkbox"]').val(),
+				 title = $(this).val();
+
+				 if ($(this).is(':checked')) {
+				   var html = '<span title="' + title + '"> ,' + title + '</span>';
+				   if($('.showtext').text() == "Select here"){
+						   $('.showtext').empty();
+						   html = '<span title="' + title + '">' + title + '</span>';
+				   }
+				   $('.showtext').append(html);
+				 } else {
+				   $('span[title="' + title + '"]').remove();
+				   if(!$('.showtext').text())
+					   $('.showtext').text("Select here");
+				 }
+			});
+		</script>
+		
 		Tell us something about you! <br>
 		<textarea name='description' rows="5" cols="57"></textarea>
 		<br>
