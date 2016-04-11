@@ -13,7 +13,7 @@ class Register extends CI_Controller {
 	{
 		
 		$this->load->helper(array('form'));
-		$data['logged_in'] = $this->session->userdata('logged_in');
+		$data['loggedin'] = $this->session->userdata('logged_in');
 		$this->load->view('header_view',$data);
 		if(null == ($this->session->userdata('register_step'))){
 			$this->session->set_userdata('register_step','1');
@@ -21,7 +21,7 @@ class Register extends CI_Controller {
 		
 		$step = $this->session->userdata('register_step');
 		switch ($step){
-			case 1: $this->load->view('register_view'); break;
+			case 1: $this->load->view('register_view',$data); break;
 			case 2: $this->load->view('register2_view',$this->generateQuestions()); break;
 			case 3: $this->load->view('register3_view'); break;
 			default: $this->session->set_userdata('register_step','1');
@@ -72,8 +72,66 @@ class Register extends CI_Controller {
 	
 	function generateQuestions(){
 		$returnArray = [
-				'v1' => ['n'=>'1', 'a'=>'1.50m', 'b'=>'1.60m', 'c'=>'deze vraag is racistisch.'],
-				'v2' => ['n'=>'2', 'a'=>'1.90m', 'b'=>'1.10m', 'c'=>'bananen zijn krom.']
+				'v1' => [
+						'n'=>'1',
+						'a'=>'1.50m',
+						'b'=>'1.60m',
+						'c'=>'deze vraag is racistisch.'],
+				'v2' => [
+						'n'=>'2',
+						'a'=>'1.90m',
+						'b'=>'1.10m',
+						'c'=>'bananen zijn krom.'],
+				'v3' => [
+						'n'=>'2',
+						'a'=>'1.90m',
+						'b'=>'1.10m',
+						'c'=>'bananen zijn krom.'],
+				'v4' => [
+						'n'=>'2',
+						'a'=>'1.90m',
+						'b'=>'1.10m',
+						'c'=>'bananen zijn krom.'],
+				'v5' => [
+						'n'=>'2',
+						'a'=>'1.90m',
+						'b'=>'1.10m',
+						'c'=>'bananen zijn krom.'],
+				'v6' => [
+						'n'=>'2',
+						'a'=>'1.90m',
+						'b'=>'1.10m',
+						'c'=>'bananen zijn krom.'],
+				'v7' => [
+						'n'=>'2',
+						'a'=>'1.90m',
+						'b'=>'1.10m',
+						'c'=>'bananen zijn krom.'],
+				'v8' => [
+						'n'=>'2',
+						'a'=>'1.90m',
+						'b'=>'1.10m',
+						'c'=>'bananen zijn krom.'],
+				'v9' => [
+						'n'=>'2',
+						'a'=>'1.90m',
+						'b'=>'1.10m',
+						'c'=>'bananen zijn krom.'],
+				'v10' => [
+						'n'=>'2',
+						'a'=>'1.90m',
+						'b'=>'1.10m',
+						'c'=>'bananen zijn krom.'],
+				'v2' => [
+						'n'=>'2',
+						'a'=>'1.90m',
+						'b'=>'1.10m',
+						'c'=>'bananen zijn krom.'],
+				'v2' => [
+						'n'=>'2',
+						'a'=>'1.90m',
+						'b'=>'1.10m',
+						'c'=>'bananen zijn krom.'],
 		];
 		//shuffle($returnArray);
 		return $returnArray;

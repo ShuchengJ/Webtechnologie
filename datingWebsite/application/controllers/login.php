@@ -5,12 +5,22 @@ class Login extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
+		$this->load->library('session');
 	}
 	
 	function index()
 	{
+		if($this -> session -> userdata('logged_in')){
+			$data['loggedin'] = $this->session->userdata('logged_in');
+			$data['email'] = $this->session->userdata('email');
+				
+		}else{
+			$data['loggedin'] = FALSE;
+		}
+		
 		$this->load->database();
 		$this->load->helper(array('form'));
+		$this->load->view('header_view',$data);
 		$this->load->view('login_view');
 	}
 }

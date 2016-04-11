@@ -18,20 +18,6 @@ if(session_id() == ''){
 <title>Datadateorsomething</title>
 </head>
 <body>
-<div class="header">
-	<a href="/datingWebsite/index.php/home" class="home" >WebsiteName</a>
-	<div class="menu">
-		<?php 
-		if(!$loggedin){
-		echo '<a href="/datingWebsite/index.php/login"><span>Login</span></a>';
-		echo '<a href="/datingWebsite/index.php/register"><span>Register</span></a>';
-		}else{
-		echo '<a href="/datingWebsite/index.php/home/logout">Logout</a>';
-		echo $email;
-		}
-		?>
-	</div>
-</div>
 
 <div class="content">
 	<div class="searchArea">

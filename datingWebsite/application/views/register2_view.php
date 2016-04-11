@@ -3,7 +3,7 @@
 	do the following test to see what personality type thingy you are!
 	<form method="post" action="register/secondStep">
 		<?php 
-		for ($x = 1; $x < 3; $x++) {
+		for ($x = 1; $x < 11; $x++) {
 			$question = "v".$x;
 			$real = $$question;
 			echo 'Vraag '.$x.'<br>';
