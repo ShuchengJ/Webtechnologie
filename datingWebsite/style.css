@@ -166,3 +166,12 @@ label{
 	color:red;
 	text-align:center;
 }
+
+#slider { 
+	margin:10px 25px 10px 5px; 
+}
+
+.ui-slider .ui-slider-handle {
+    width:0.6em !important;
+    margin-left:-0.3em !important;
+}

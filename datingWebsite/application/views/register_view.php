@@ -7,20 +7,20 @@
 	<form method="post" action="register/firstStep" class="register">
 	<div class='registerwrapper'>
 		<div class='registerForm'>
-			nickname/alias <br>
+			Nickname/alias <br>
 			<input type='text' name='nickname' id='nickname' required/> <br>
 		
-			full name<br>
+			Full name<br>
 			<input type='text' name='fullname' id='fullname' required/> <br>
 	
 			Email address<br>
 			<input type='email' name='email' id='email' required/> <br>
 		
-			password:<br>
+			Password:<br>
 			<input type='password' name='password' id='password' minlength='4' required/>
 		</div>
 		<div class='registerForm'>
-			birthday <br>
+			Birthday <br>
 			<input type='number' name='day' id='day' maxlength='2' size='4' min="1" max="31" placeholder='day' required/>
 			<input type='number' name='month' id='month' maxlength='2' size='4' min="1" max="12" placeholder='month' required/>
 			<input type='number' name='year' id='year' maxlength='4' size='4' min="1900" max="2016" placeholder='year' required/>
@@ -32,15 +32,31 @@
 			<input type='radio' name='interest' value='Man' required> Man
 			<input type='radio' name='interest' value='Woman' required checked> Woman
 			<input type='radio' name='interest' value='Both' required> Both
-			<p>slider here!</p>
-			<input type='text' readonly name='age' value='5' required>
-			<p> dropdown with checkboxes here! </p>
+			
+			<br>
+			between the ages of:
+			<br>
+			<div id="slider"></div>
+			<script>
+				$( "#slider" ).slider({
+					min:18,
+					max:100,
+					values:[ 18, 25 ],
+					range:true,
+					slide: function(event, ui) {
+				        $("#amount").val(ui.values[0] + " - " + ui.values[1]);
+				    }
+				});
+			</script>
+			
+			<input id='amount' type='text' readonly name='age' value='18 - 25' required>
+			<p> dropdown with checkboxes </p>
 			<input type='text' readonly name='brands' value='Pepsi' required>
 			<br>
 		</div>
 		<div class='descriptionForm'>
 		Tell us something about you! <br>
-		<textarea name='description' rows="5" cols="60"></textarea>
+		<textarea name='description' rows="5" cols="57"></textarea>
 		<br>
 		<input type="submit" value="Go To Step 2">
 		</div>

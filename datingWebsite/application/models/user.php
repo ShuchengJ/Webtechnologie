@@ -32,7 +32,10 @@ class User extends CI_Model {
 		$year = $userData['year'];
 		$gender = $userData['gender'];
 		$interest = $userData['interest'];
+		
 		$age = $userData['age'];
+		$agerange = explode(" ", $age);
+		
 		$brands = $userData['brands'];
 		$description = $userData['description'];
 		$ei = $userData['personality']['ei'];
@@ -41,7 +44,7 @@ class User extends CI_Model {
 		$jp = $userData['personality']['jp'];
 		
 		$statement = 'INSERT INTO users (nickname,fullname,email,password,day,month,year,
-				gender,interest,age,brands,description,ei,ns,tf,jp) 
+				gender,interest,agemin,agemax,brands,description,ei,ns,tf,jp) 
 				
 				VALUES ('.$this->db->escape($nickname).',
 						'.$this->db->escape($fullname).',
@@ -52,7 +55,8 @@ class User extends CI_Model {
 						'.$this->db->escape($year).',
 						'.$this->db->escape($gender).',
 						'.$this->db->escape($interest).',
-						'.$this->db->escape($age).',
+						'.$this->db->escape($agerange[0]).',
+						'.$this->db->escape($agerange[2]).',
 						'.$this->db->escape($brands).',
 						'.$this->db->escape($description).',
 						'.$this->db->escape($ei).',
