@@ -18,7 +18,6 @@ if(session_id() == ''){
 <title>Datadateorsomething</title>
 </head>
 <body>
-
 <div class="content">
 	<div class="searchArea">
 	<form>
