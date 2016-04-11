@@ -175,3 +175,50 @@ label{
     width:0.6em !important;
     margin-left:-0.3em !important;
 }
+
+.dropdown dt {
+  margin:0px;
+  padding:0px;
+}
+
+.dropdown ul {
+  margin:-1px 0 0 0;
+}
+
+.dropdown dd {
+  position:relative;
+  margin:0px;
+  padding:0px;
+}
+
+.dropdown dt a {
+  display:block;
+  overflow:hidden;
+  border:1px solid gray;
+  border-radius:3px;
+  height:1.8em;
+  margin:5px 8px 0px 0px;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.2);
+  background:white;
+  padding:1px 5px;
+  text-align:center;
+}
+
+.dropdown dt a span {
+  color:black;
+  text-align:right;
+  display:inline-block;
+}
+
+.dropdown dd ul {
+  background-color:white;
+  border:1px solid gray;
+  border-radius:3px;
+  display:none;
+  padding:2px 15px 2px 5px;
+  position:absolute;
+  top:2px;
+  width:420px;
+  height:200px;
+  overflow:auto;
+}
