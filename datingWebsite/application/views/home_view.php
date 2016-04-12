@@ -19,17 +19,20 @@ if(session_id() == ''){
 </head>
 <body>
 <div class="content">
+<div class="contentWrapper">
 	<div class="searchArea">
-	<form>
+	<form id="search" method="post" action="home/search">
 	<fieldset class="searchfs">
 	<legend class="searchlegend">Gender</legend>
-	<input type="checkbox" name="male"/> male
-	<input type="checkbox" name="female"/> female <br>
+	<input type="radio" name="gender" value="Man" required/> male
+	<input type="radio" name="gender" value="Woman"/> female 
+	<input type="radio" name="gender" value="Both" checked/> any<br>
+	
 	</fieldset>
 	
 	<fieldset class="searchfs">
 	<legend class="searchlegend">Age</legend>
-	<input type="text" id="age" readonly>
+	<input type="text" id="age" name="age" readonly>
 	<div id="slider-range"></div>
 	</fieldset>
 	
@@ -59,14 +62,14 @@ if(session_id() == ''){
 	 <input type="submit" value="Search">
 	</form>
 	</div>
-	<div>
-	<?php
-	if($loggedin){
-	echo '<h3>DIT IS EEN APPELTJE</h3>';
-	}else{
-	echo '<h3>AARDAPPEL!</h3>';
-	}
-	?>
+	<div class="matchesWrapper">
+	<div class="match" id='0'> No more results!</div>
+	<div class="match" id='1'> No more results!</div>
+	<div class="match" id='2'> No more results!</div>
+	<div class="match" id='3'> No more results!</div>
+	<div class="match" id='4'> No more results!</div>
+	<div class="match" id='5'> No more results!</div>
+	</div>
 	</div>
 </div>
 </body>

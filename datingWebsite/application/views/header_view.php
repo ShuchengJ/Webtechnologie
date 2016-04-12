@@ -6,7 +6,6 @@
 <link rel="stylesheet" type="text/css" href="/datingWebsite/style.css">
 <link rel="stylesheet" href="/datingWebsite/jquery-ui.min.css">
 <script src="/datingWebsite/jquery-ui.min.js"></script>
-<script src="/datingWebsite/jquerysearch.js"></script>
 
 <title>Datadateorsomething</title>
 </head>

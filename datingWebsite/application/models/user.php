@@ -68,5 +68,49 @@ class User extends CI_Model {
 		
 		return $query;
 	}
+	
+	function getUserInformation($key){
+		$this->db->select();
+		$this->db->from('users');
+		$this->db->where('email',$key);
+		$this->db->limit(1);
+		
+		$query = $this -> db -> get();
+		
+		if($query -> num_rows() == 1){
+			return $query->result_array()[0];
+		}else{
+			return false;
+		}
+	}
+	
+	function changeUserInformation($key,$userData){
+		$this->db->where('id',$key);
+		$this->db->update('users',$userData);
+	}
+	
+	function getRandomMatch(){
+		$this->db->select('nickname, gender,month,day,year,id');
+		$this->db->from('users');
+		$query = $this -> db -> get();
+		
+		$result = $query->result_array();
+		shuffle($result);
+		return array_slice($result, 0,6);
+	}
+	
+	function getSearchedMatch($gender){
+
+		$this->db->select('nickname,gender,month,day,year,id');
+		$this->db->from('users');
+		if($gender != 'Both'){
+			$this->db->where('gender',$gender);
+		}
+		$query = $this -> db -> get();
+		$result = $query->result_array();
+		shuffle($result);
+		return array_slice($result, 0,6);
+	}
+	
 }
 ?>
