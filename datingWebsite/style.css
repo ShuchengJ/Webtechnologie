@@ -171,14 +171,32 @@ label{
 	margin:0 0 0 30px;
 }
 
+.matchForm{
+	width:60%;
+}
+
 .match{
 	float:left;
 	border:1px black solid;
 	background-color:light-gray;
-	width:30%;
+	width:100%;
 	height:auto;
 	padding:20px;
 	margin:20px auto;
+	cursor:pointer;
+}
+
+.status0{
+	background-color:gray;	
+}
+.status1{
+	background-color:blue;	
+}
+.status2{
+	background-color:green;	
+}
+.status3{
+	background-color:red;	
 }
 .labelname{
 	margin-right:125px;

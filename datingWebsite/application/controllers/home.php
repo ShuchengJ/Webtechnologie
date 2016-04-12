@@ -29,16 +29,38 @@ class Home extends CI_Controller {
 		
 		$profiles = $this->user->getRandomMatch();
 		for ($x = 0; $x < count($profiles); $x++) {
+			$status = $this->checkLikes($profiles[$x]['id']);
 			$age = $this->getAge($profiles[$x]['year'],$profiles[$x]['month'],$profiles[$x]['day']);
 			$data[$x] = array('nickname'=>$profiles[$x]['nickname'],
 							  'gender'=>$profiles[$x]['gender'],
 							  'id'=>$profiles[$x]['id'],
 							  'age'=>$age,
-							  'image'=>'none'
+							  'image'=>'none',
+							  'status'=>$status
 			);
 		}
 		$this->session->set_userdata('matches',$profiles);
 		echo json_encode($data);
+	}
+	//see if user likes / is liked by this user
+	//0 no likes
+	//1 user likes other
+	//2 other likes user
+	//3 both like eachother
+	function checkLikes($otherUser){
+		$status = $this->session->userdata('like');
+		$output = 0;
+		if(in_array($otherUser, $status['likes'])){
+			//user likes other
+			$output = 1;
+			if(in_array($otherUser,$status['likedby'])){
+				//both like
+				$output = 3;
+			}else{
+				$output = 2;
+			}
+		}
+		return $output;
 	}
 	
 	function search(){

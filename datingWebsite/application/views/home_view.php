@@ -63,12 +63,30 @@ if(session_id() == ''){
 	</form>
 	</div>
 	<div class="matchesWrapper">
-	<div class="match" id='0'> No more results!</div>
-	<div class="match" id='1'> No more results!</div>
-	<div class="match" id='2'> No more results!</div>
-	<div class="match" id='3'> No more results!</div>
-	<div class="match" id='4'> No more results!</div>
-	<div class="match" id='5'> No more results!</div>
+	<form name='matchForm' method="post" action="userDetail">
+	<input type='hidden' name="id" value="0">
+	<div class="match" id='0' onClick="document.forms['matchForm'].submit()"> No more results!</div>
+	</form>
+	<form name='matchForm' method="post" action="userDetail">
+	<input type='hidden' name="id" value="1">
+	<div class="match" id='1' onClick="document.forms['matchForm'].submit()"> No more results!</div>
+	</form>
+	<form name='matchForm' method="post" action="userDetail">
+	<input type='hidden' name="id" value="2">
+	<div class="match" id='2' onClick="document.forms['matchForm'].submit()"> No more results!</div>
+	</form>
+	<form name='matchForm' method="post" action="userDetail">
+	<input type='hidden' name="id" value="3">
+	<div class="match" id='3' onClick="document.forms['matchForm'].submit()"> No more results!</div>
+	</form>
+	<form name='matchForm' method="post" action="userDetail">
+	<input type='hidden' name="id" value="4">
+	<div class="match" id='4' onClick="document.forms['matchForm'].submit()"> No more results!</div>
+	</form>
+	<form name='matchForm' method="post" action="userDetail">
+	<input type='hidden' name="id" value="5">
+	<div class="match" id='5' onClick="document.forms['matchForm'].submit()"> No more results!</div>
+	</form>
 	</div>
 	</div>
 </div>

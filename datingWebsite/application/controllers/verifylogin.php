@@ -6,6 +6,7 @@ class VerifyLogin extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('user','',TRUE);
+		$this->load->model('connections','',TRUE);
 		$this->load->library('session');
 	}
 	
@@ -22,8 +23,10 @@ class VerifyLogin extends CI_Controller {
    		}
    		else
    		{
-   			//Go to private area
-   			//$this->load->view('login_view');
+   			$profile = $this->user->getUserInformation($this->input->post('email')); //TODO:: this should be PK ID
+   			$currentUser = $this->session->userdata('profile')['id'];
+			$this->session->set_userdata('profile',$profile);
+			$this->session->set_userdata('like',$this->connections->getLikeInformation($currentUser));
    			redirect(site_url('home'),'auto');
    		}
 	}

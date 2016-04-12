@@ -40,7 +40,6 @@ class Profile extends CI_Controller {
 			$newPass = $this->input->post('newPass');
 			if($newPass == ''){
 				$newPass = $password;
-				echo "alert('kutje')";
 			}
 			
 			$age = $this->input->post('age');
@@ -66,7 +65,7 @@ class Profile extends CI_Controller {
 			redirect('profile','auto');
 			
 	}
-	
+	//TODO .. this no good workiework yet.. =( naja .. eh ja
 	function do_upload()
 	{
 		$config['upload_path'] = './uploads/';

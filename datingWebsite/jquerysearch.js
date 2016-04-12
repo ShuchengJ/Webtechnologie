@@ -20,17 +20,20 @@ $(document).ready(function () {
 	    success: function (data){
 	    	if($logged_in){
 	    		for(i = 0; i < data.length; i++){
-	    
+	    	
 	    		if(data[i].image != 'none'){
 	    			$image = '../picture_'+data[i].image+'.jpg';
 	    		}else{
 	    			$image = '../picture'+data[i].gender+'.png';
 	    		}
-	    		$(".match#"+i).html("<img src='" + $image + "' height=150px width=150px>" +
+	    		$(".match#"+i).html("<img src='" + $image + "' height=150px width=150px id=" + i + "><br>" +
 						"nickname: " + data[i].nickname + 
 						"<br>" + 
 						"gender: " + data[i].gender + "   " + data[i].age);
+	    		
+	    		$(".match#"+i).addClass("status"+data[i].status);
 	    		}
+	    		
 	    	}else{
 	    	for(i = 0; i < data.length; i++){
 	    		$(".match#"+i).html("<img src='../picture"+data[i].gender+".png' height=150px width=150px id=" + i + "><br>" +
@@ -86,24 +89,6 @@ $(document).ready(function () {
 	        });
 	    });
 	
-	
-	$(".match").on("click",function(event){
-		var id = event.target['id'];
-		$.ajax({
-		    type: 'POST',
-		    url: 'userDetail',
-		    data:{'id':id},
-			success:function(data){
-				$('.content').html(data);
-				alert(data);
-			},
-		    error:function(error,a,t){
-		    	alert(t);
-		    }
-		});
-		
-	});
-		
 	$( "#slider-range" ).slider({
 	      range: true,
 	      min: 18,
