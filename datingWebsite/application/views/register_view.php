@@ -69,10 +69,13 @@
     		<dd>
         		<div class="listofbrands">
            			<ul>
-               			<li>
-                   			<input type="checkbox" value="Coca-Cola" />Coca-Cola</li>
-               			<li>
-                   			<input type="checkbox" value="Pepsi" />Pepsi</li>
+               			<?php
+           				$file = fopen($_SERVER['DOCUMENT_ROOT'].'/datingwebsite/brands.txt','r');
+           				while ($line = fgets($file)) {
+           				  echo("<li><input type=\"checkbox\" value=".$line."/>"."$line"."</li>");
+           				}
+           				fclose($file);
+           				?>
            			</ul>
         		</div>
     		</dd>
@@ -93,10 +96,9 @@
 				 title = $(this).val();
 
 				 if ($(this).is(':checked')) {
-				   var html = '<span title="' + title + '"> ,' + title + '</span>';
+				   var html = '<span title="' + title + '">&nbsp;' + title + '</span>';
 				   if($('.showtext').text() == "Select here"){
 						   $('.showtext').empty();
-						   html = '<span title="' + title + '">' + title + '</span>';
 				   }
 				   $('.showtext').append(html);
 				 } else {
