@@ -42,8 +42,9 @@ class Connections extends CI_Model {
 		$this->db->where('id',$user);
 		$query = $this -> db -> get();
 		
-		$likedby = $query->row()->likedby;
+		
 		$likes =  $query->row()->likes;
+		$likedby = $query->row()->likedby;
 		
 		return array('likes'=>explode(',', $likes),
 					'likedby'=>explode(',',$likedby)

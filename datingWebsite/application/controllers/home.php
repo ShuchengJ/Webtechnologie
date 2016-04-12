@@ -35,7 +35,7 @@ class Home extends CI_Controller {
 							  'gender'=>$profiles[$x]['gender'],
 							  'id'=>$profiles[$x]['id'],
 							  'age'=>$age,
-							  'image'=>'none',
+							  'image'=>'none', //TODO add db and retrieval images
 							  'status'=>$status
 			);
 		}

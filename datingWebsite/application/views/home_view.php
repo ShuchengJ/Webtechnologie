@@ -63,29 +63,29 @@ if(session_id() == ''){
 	</form>
 	</div>
 	<div class="matchesWrapper">
-	<form name='matchForm' method="post" action="userDetail">
+	<form name='matchForm0' method="post" action="userDetail">
 	<input type='hidden' name="id" value="0">
-	<div class="match" id='0' onClick="document.forms['matchForm'].submit()"> No more results!</div>
+	<div class="match" id='0' onClick="document.forms['matchForm0'].submit()"> No more results!</div>
 	</form>
-	<form name='matchForm' method="post" action="userDetail">
+	<form name='matchForm1' method="post" action="userDetail">
 	<input type='hidden' name="id" value="1">
-	<div class="match" id='1' onClick="document.forms['matchForm'].submit()"> No more results!</div>
+	<div class="match" id='1' onClick="document.forms['matchForm1'].submit()"> No more results!</div>
 	</form>
-	<form name='matchForm' method="post" action="userDetail">
+	<form name='matchForm2' method="post" action="userDetail">
 	<input type='hidden' name="id" value="2">
-	<div class="match" id='2' onClick="document.forms['matchForm'].submit()"> No more results!</div>
+	<div class="match" id='2' onClick="document.forms['matchForm2'].submit()"> No more results!</div>
 	</form>
-	<form name='matchForm' method="post" action="userDetail">
+	<form name='matchForm3' method="post" action="userDetail">
 	<input type='hidden' name="id" value="3">
-	<div class="match" id='3' onClick="document.forms['matchForm'].submit()"> No more results!</div>
+	<div class="match" id='3' onClick="document.forms['matchForm3'].submit()"> No more results!</div>
 	</form>
-	<form name='matchForm' method="post" action="userDetail">
+	<form name='matchForm4' method="post" action="userDetail">
 	<input type='hidden' name="id" value="4">
-	<div class="match" id='4' onClick="document.forms['matchForm'].submit()"> No more results!</div>
+	<div class="match" id='4' onClick="document.forms['matchForm4'].submit()"> No more results!</div>
 	</form>
-	<form name='matchForm' method="post" action="userDetail">
+	<form name='matchForm5' method="post" action="userDetail">
 	<input type='hidden' name="id" value="5">
-	<div class="match" id='5' onClick="document.forms['matchForm'].submit()"> No more results!</div>
+	<div class="match" id='5' onClick="document.forms['matchForm5'].submit()"> No more results!</div>
 	</form>
 	</div>
 	</div>

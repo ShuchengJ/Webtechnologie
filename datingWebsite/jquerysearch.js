@@ -89,6 +89,7 @@ $(document).ready(function () {
 	        });
 	    });
 	
+
 	$( "#slider-range" ).slider({
 	      range: true,
 	      min: 18,

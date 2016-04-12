@@ -20,7 +20,7 @@ class UserDetail extends CI_Controller {
 			$data['loggedin'] = FALSE;
 		}
 		if(null != $this->input->post('id')){
-		$this->session->set_userdata('likedPage',$this->input->post('id'));
+			$this->session->set_userdata('likedPage',$this->input->post('id'));
 		}
 		$profile = $this->session->userdata('likedPage');
 		$wantedUser = $this->session->userdata('matches')[$profile];

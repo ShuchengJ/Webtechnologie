@@ -27,6 +27,7 @@ class VerifyLogin extends CI_Controller {
    			$currentUser = $this->session->userdata('profile')['id'];
 			$this->session->set_userdata('profile',$profile);
 			$this->session->set_userdata('like',$this->connections->getLikeInformation($currentUser));
+			
    			redirect(site_url('home'),'auto');
    		}
 	}
