@@ -26,10 +26,10 @@ $(document).ready(function () {
 		   $('.showtext').append(html);
 		 } else {
 		   $('span[title="' + title + '"]').remove();
-		   if(!$('.showtext').text())
-			   $('.showtext').text("Select here");
 		 }
        $("#brands").val($('.showtext').text());
+	   if(!$('.showtext').text())
+		   $('.showtext').text("Select here");
 	});
 });
 	
