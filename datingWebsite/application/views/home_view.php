@@ -14,6 +14,7 @@ if(session_id() == ''){
 <link rel="stylesheet" href="/datingWebsite/jquery-ui.min.css">
 <script src="/datingWebsite/jquery-ui.min.js"></script>
 <script src="/datingWebsite/jquerysearch.js"></script>
+<script src="/datingWebsite/jquerydropdown.js"></script>
 
 <title>Datadateorsomething</title>
 </head>
@@ -35,6 +36,31 @@ if(session_id() == ''){
 	<input type="text" id="age" name="age" readonly>
 	<div id="slider-range"></div>
 	</fieldset>
+  	
+  	<fieldset class="searchfs">
+  	<legend class="searchlegend">Brands</legend>
+  	<dl class="dropdown"> 
+    		<dt>
+    		<a href="#">
+      			<span id="span" class="showtext">Select here</span>   
+    		</a>
+    		</dt>
+    		<dd>
+        		<div class="listofbrands">
+           			<ul>
+               			<?php
+           				$file = fopen($_SERVER['DOCUMENT_ROOT'].'/datingwebsite/brands.txt','r');
+           				while ($line = fgets($file)) {
+           				  echo("<li><input type=\"checkbox\" value=".$line.">"."$line"."</li>");
+           				}
+           				fclose($file);
+           				?>
+           			</ul>
+        		</div>
+    		</dd>
+		</dl>
+		<input id="brands" type="hidden" name="brands" value="" />
+	</fieldset>
 	
 	<fieldset class="searchfs">
 	<legend class="searchlegend">Personalty types</legend>
@@ -51,13 +77,6 @@ if(session_id() == ''){
   		<input type="radio" name="PersonJP" value="Perceiving"> Perceiving<br>
   	</div>
   	</fieldset>
-  	
-  	<fieldset class="searchfs">
-  	<legend class="searchlegend">brands</legend>
-  	<input type="checkbox" name="merk1"/> Coca-cola <br>
-	<input type="checkbox" name="merk2"/> Pepsi <br>
-	</fieldset>
-	
 	
 	 <input type="submit" value="Search">
 	</form>

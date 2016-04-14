@@ -227,6 +227,7 @@ label{
 
 .dropdown ul {
   margin:-1px 0 0 0;
+  z-index:1;
 }
 
 .dropdown dd {
@@ -262,7 +263,7 @@ label{
   padding:2px 15px 2px 5px;
   position:absolute;
   top:2px;
-  width:420px;
+  width:calc(100% - 8px);
   height:200px;
   overflow:auto;
 }

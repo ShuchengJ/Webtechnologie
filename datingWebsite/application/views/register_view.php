@@ -1,3 +1,4 @@
+<script src="/datingWebsite/jquerydropdown.js"></script>
 <div class="content">
 
 	<?php
@@ -40,39 +41,25 @@
 			between the ages of:
 			<br>
 			<div id="slider"></div>
-			<script>
-				$( "#slider" ).slider({
-					min:18,
-					max:100,
-					values:[ 18, 25 ],
-					range:true,
-					slide: function(event, ui) {
-				        $("#amount").val(ui.values[0] + " - " + ui.values[1]);
-				    }
-				});
-			</script>
 			
 			<input id='amount' type='text' readonly name='age' value='18 - 25' required>
 		</div>
 		
-		
 		<div  class='descriptionForm'>
 		Choose your favorite brands: <br>
 		<dl class="dropdown"> 
-  
     		<dt>
     		<a href="#">
-      			<span class="showtext">Select here</span>   
+      			<span id="span" class="showtext">Select here</span>   
     		</a>
     		</dt>
-  
     		<dd>
         		<div class="listofbrands">
            			<ul>
                			<?php
            				$file = fopen($_SERVER['DOCUMENT_ROOT'].'/datingwebsite/brands.txt','r');
            				while ($line = fgets($file)) {
-           				  echo("<li><input type=\"checkbox\" value=".$line."/>"."$line"."</li>");
+           				  echo("<li><input type=\"checkbox\" value=".$line.">"."$line"."</li>");
            				}
            				fclose($file);
            				?>
@@ -80,34 +67,7 @@
         		</div>
     		</dd>
 		</dl>
-			
-		<script>
-			$(".dropdown dt a").on('click', function() {
-				  $(".dropdown dd ul").slideToggle('fast');
-			});
-
-			function getSelectedValue(id) {
-				 return $("#" + id).find("dt a span.value").html();
-			}
-
-			$('.listofbrands input[type="checkbox"]').on('click', function() {
-
-				 var title = $(this).closest('.listofbrands').find('input[type="checkbox"]').val(),
-				 title = $(this).val();
-
-				 if ($(this).is(':checked')) {
-				   var html = '<span title="' + title + '">&nbsp;' + title + '</span>';
-				   if($('.showtext').text() == "Select here"){
-						   $('.showtext').empty();
-				   }
-				   $('.showtext').append(html);
-				 } else {
-				   $('span[title="' + title + '"]').remove();
-				   if(!$('.showtext').text())
-					   $('.showtext').text("Select here");
-				 }
-			});
-		</script>
+		<input id="brands" type="hidden" name="brands" value="" />
 		
 		Tell us something about you! <br>
 		<textarea name='description' rows="5" cols="57"></textarea>
