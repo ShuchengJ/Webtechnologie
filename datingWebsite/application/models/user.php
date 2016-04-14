@@ -100,17 +100,71 @@ class User extends CI_Model {
 	}
 	
 	function getSearchedMatch($gender){
-
+		
 		$this->db->select('nickname,gender,month,day,year,id');
 		$this->db->from('users');
 		if($gender != 'Both'){
 			$this->db->where('gender',$gender);
 		}
+		// Needs age
 		$query = $this -> db -> get();
 		$result = $query->result_array();
+		
+		//Sort them here
 		shuffle($result);
+		
 		return array_slice($result, 0,6);
 	}
 	
+	function getCompleteMatch($data){
+		// Array needs gender, interest, year, age, personality, brands
+		$this->db->select('nickname,day,month,year,gender,
+				brands,description,ei,ns,tf,jp');
+		$this->db->from('users');
+		
+		$age = $data['age'];
+		$agerange = explode(" ", $age);
+		$minage = $agerange[0];
+		$maxage = $agerange[2];
+		if($data['interest'] != 'Both'){
+			$this->db->where('gender',$data['interest']);
+			$this->db->where('interest',$data['gender']);
+			$this->db->or_where('interest','Both');
+			$this->db->where('year <', date("Y") - $minage);
+			$this->db->where('year >', date("Y") - $maxage);
+			$this->db->where('minage >', date("Y") - $data['year']);
+			$this->db->where('maxage <', date("Y") - $data['year']);
+		}
+		// Needs age
+		$query = $this -> db -> get();
+		$result = $query->result_array();
+	
+		//Sort them here
+		shuffle($result);
+	
+		return array_slice($result, 0,6);
+	}
+	
+	function getPersonalityDistance($firstArray, $secondArray){
+		$extrovert = $firstArray['ei'] - $secondArray['ei'];
+		$intuitive = $firstArray['nd'] - $secondArray['ns'];
+		$thinking = $firstArray['tf'] - $secondArray['tf'];
+		$judging = $firstArray['jp'] - $secondArray['jp'];
+		$sum = $extrovert + $intuitive + $thinking + $judging;
+		return $sum / 400;
+	}
+	
+	function getBrandsDistance($firstArray, $secondArray){
+		$overlap = array_intersect($firstArray, $secondArray);
+		$dividend = 2 * sizeof($overlap);
+		$divisor = sizeof($firstArray) + sizeof($secondArray);
+		if($divisor == 0)
+			$divisor = 1;
+		return 1 - ($dividend / $divisor);
+	}
+	
+	function getArrayBrands(){
+		
+	}
 }
 ?>
