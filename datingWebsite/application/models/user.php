@@ -33,8 +33,10 @@ class User extends CI_Model {
 		$gender = $userData['gender'];
 		$interest = $userData['interest'];
 		
-		$age = $userData['age'];
-		$agerange = explode(" ", $age);
+		$age = $this->getAge($day, $month, $year);
+		
+		$ageran = $userData['age'];
+		$agerange = explode(" ", $ageran);
 		
 		$brands = $userData['brands'];
 		$description = $userData['description'];
@@ -43,13 +45,14 @@ class User extends CI_Model {
 		$tf = $userData['personality']['tf'];
 		$jp = $userData['personality']['jp'];
 		
-		$statement = 'INSERT INTO users (nickname,fullname,email,password,day,month,year,
+		$statement = 'INSERT INTO users (nickname,fullname,email,password,age,day,month,year,
 				gender,interest,agemin,agemax,brands,description,ei,ns,tf,jp) 
 				
 				VALUES ('.$this->db->escape($nickname).',
 						'.$this->db->escape($fullname).',
 						'.$this->db->escape($email).', 
 						'.$this->db->escape($password).',
+						'.$this->db->escape($age).',
 						'.$this->db->escape($day).',
 						'.$this->db->escape($month).',
 						'.$this->db->escape($year).',
@@ -122,19 +125,29 @@ class User extends CI_Model {
 				brands,description,ei,ns,tf,jp');
 		$this->db->from('users');
 		
-		$age = $data['age'];
-		$agerange = explode(" ", $age);
+		$age = $this->getAge($data['day'], $data['month'], $data['year']);
+		$ageran = $data['age'];
+		$agerange = explode(" ", $ageran);
 		$minage = $agerange[0];
 		$maxage = $agerange[2];
-		if($data['interest'] != 'Both'){
+		
+		if($data['interest'] != 'Both')
 			$this->db->where('gender',$data['interest']);
-			$this->db->where('interest',$data['gender']);
-			$this->db->or_where('interest','Both');
-			$this->db->where('year <', date("Y") - $minage);
-			$this->db->where('year >', date("Y") - $maxage);
-			$this->db->where('minage >', date("Y") - $data['year']);
-			$this->db->where('maxage <', date("Y") - $data['year']);
-		}
+		$this->db->where('interest',$data['gender']);
+		$this->db->where('age >=', $minage);
+		$this->db->where('age <=', $maxage);
+		$this->db->where('agemin <=', $age);
+		$this->db->where('agemax >=', $age);
+		$this->db->where('email !=', $data['email']);
+		$this->db->or_where('interest','Both');
+		if($data['interest'] != 'Both')
+			$this->db->where('gender',$data['interest']);
+		$this->db->where('age >=', $minage);
+		$this->db->where('age <=', $maxage);
+		$this->db->where('agemin <=', $age);
+		$this->db->where('agemax >=', $age);
+		$this->db->where('email !=', $data['email']);
+		
 		// Needs age
 		$query = $this -> db -> get();
 		$result = $query->result_array();
@@ -161,6 +174,13 @@ class User extends CI_Model {
 		if($divisor == 0)
 			$divisor = 1;
 		return 1 - ($dividend / $divisor);
+	}
+	
+	function getAge($day, $month, $year){
+		$string = $year."-".$month."-".$day;
+		$from = new DateTime($string);
+		$to   = new DateTime('today');
+		return $from->diff($to)->y;
 	}
 	
 	function getArrayBrands(){

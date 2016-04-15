@@ -27,7 +27,7 @@
 			Birthday <br>
 			<input type='number' name='day' id='day' maxlength='2' size='4' min="1" max="31" placeholder='day' required/>
 			<input type='number' name='month' id='month' maxlength='2' size='4' min="1" max="12" placeholder='month' required/>
-			<input type='number' name='year' id='year' maxlength='4' size='4' min="1900" max="2016" placeholder='year' required/>
+			<input type='number' name='year' id='year' maxlength='4' size='4' min="<?php echo date("Y") - 100;?>" max="<?php echo date("Y");?>" placeholder='year' required/>
 			<br>
 			I am a:<br>
 			<input type='radio' name='gender' value='Man' required checked> Man
