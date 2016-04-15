@@ -135,7 +135,7 @@ class User extends CI_Model {
 		return array_slice($result, 0,6);
 	}
 	
-	function getCompleteMatch($data){
+	function getCompleteMatch($data, $iteration){
 		// Gets the data from the first table
 		$this->db->select('nickname,day,month,year,gender,email,
 				brands,description');
@@ -203,7 +203,7 @@ class User extends CI_Model {
 			$answer[$y] = $result[array_search($order[$y], array_column($result, 'email'))];
 		}
 	
-		return array_slice($answer, 0,6);
+		return array_slice($answer, $iteration * 6, $iteration * 6 + 6);
 	}
 	
 	function getPersonalityDistance($firstArray, $secondArray){
