@@ -40,13 +40,9 @@ class User extends CI_Model {
 		
 		$brands = $userData['brands'];
 		$description = $userData['description'];
-		$ei = $userData['personality']['ei'];
-		$ns = $userData['personality']['ns'];
-		$tf = $userData['personality']['tf'];
-		$jp = $userData['personality']['jp'];
 		
 		$statement = 'INSERT INTO users (nickname,fullname,email,password,age,day,month,year,
-				gender,interest,agemin,agemax,brands,description,ei,ns,tf,jp) 
+				gender,interest,agemin,agemax,brands,description) 
 				
 				VALUES ('.$this->db->escape($nickname).',
 						'.$this->db->escape($fullname).',
@@ -61,13 +57,33 @@ class User extends CI_Model {
 						'.$this->db->escape($agerange[0]).',
 						'.$this->db->escape($agerange[2]).',
 						'.$this->db->escape($brands).',
-						'.$this->db->escape($description).',
-						'.$this->db->escape($ei).',
-						'.$this->db->escape($ns).',
-						'.$this->db->escape($tf).',
-						'.$this->db->escape($jp).')';
+						'.$this->db->escape($description).')';
 		
 		$query = $this->db->query($statement);
+		
+		$ownEI = $userData['personality']['ei'];
+		$ownNS = $userData['personality']['ns'];
+		$ownTF = $userData['personality']['tf'];
+		$ownJP = $userData['personality']['jp'];
+		$wantedEI = $userData['wanted']['ei'];
+		$wantedNS = $userData['wanted']['ns'];
+		$wantedTF = $userData['wanted']['tf'];
+		$wantedJP = $userData['wanted']['jp'];
+		
+		$secondStatement = 'INSERT INTO personalities (id,ownEI,ownNS,ownTF,ownJP,
+				wantedEI,wantedNS,wantedTF,wantedJP)
+				
+		VALUES ('.$this->db->escape($email).',
+						'.$this->db->escape($ownEI).', 
+						'.$this->db->escape($ownNS).',
+						'.$this->db->escape($ownTF).',
+						'.$this->db->escape($ownJP).',
+						'.$this->db->escape($wantedEI).',
+						'.$this->db->escape($wantedNS).',
+						'.$this->db->escape($wantedTF).',
+						'.$this->db->escape($wantedJP).')';
+		
+		$query = $this->db->query($secondStatement);
 		
 		return $query;
 	}
@@ -120,11 +136,10 @@ class User extends CI_Model {
 	}
 	
 	function getCompleteMatch($data){
-		// Array needs gender, interest, year, age, personality, brands
-		$this->db->select('nickname,day,month,year,gender,
-				brands,description,ei,ns,tf,jp');
+		// Gets the data from the first table
+		$this->db->select('nickname,day,month,year,gender,email,
+				brands,description');
 		$this->db->from('users');
-		
 		$age = $this->getAge($data['day'], $data['month'], $data['year']);
 		$ageran = $data['age'];
 		$agerange = explode(" ", $ageran);
@@ -147,22 +162,55 @@ class User extends CI_Model {
 		$this->db->where('agemin <=', $age);
 		$this->db->where('agemax >=', $age);
 		$this->db->where('email !=', $data['email']);
-		
-		// Needs age
+	
 		$query = $this -> db -> get();
 		$result = $query->result_array();
+		if(!$result)
+			return $result;
+		
+		// Gets the data from the second table
+		$this->db->select('ownEI,ownNS,ownTF,ownJP,
+				wantedEI,wantedNS,wantedTF,wantedJP');
+		$this->db->from('personalities');
+		for ($y = 0; $y < sizeof($result); $y++){
+			$this->db->or_where('id',$result[$y]['email']);
+		}
+		$secondQuery = $this -> db -> get();
+		$secondResult = $secondQuery->result_array();
+		
+		//Sorting by distance
+		$x = 0.5;
+		$order;
+		for ($y = 0; $y < sizeof($secondResult); $y++){
+			$own = array('ei'=>$secondResult[$y]['ownEI'],
+					'ns'=>$secondResult[$y]['ownNS'],
+					'tf'=>$secondResult[$y]['ownTF'],
+					'jp'=>$secondResult[$y]['ownJP']);
+			$wanted = array('ei'=>$secondResult[$y]['wantedEI'],
+					'ns'=>$secondResult[$y]['wantedNS'],
+					'tf'=>$secondResult[$y]['wantedTF'],
+					'jp'=>$secondResult[$y]['wantedJP']);
+			$brandsDistance = $this->getBrandsDist($data['brands'], $result[$x]['brands']);
+			$atob = $this->getPersonalityDistance($data['personality'],$wanted);
+			$btoa = $this->getPersonalityDistance($own,$data['wanted']);
+			$maximum = max($atob, $btoa);
+			$order[$result[$y]['email']] = $x * $brandsDistance + $x * $maximum;
+		}
+		asort($order, SORT_REGULAR);
+		$order = array_keys($order);
+		$answer;
+		for ($y = 0; $y < sizeof($order); $y++){
+			$answer[$y] = $result[array_search($order[$y], array_column($result, 'email'))];
+		}
 	
-		//Sort them here
-		shuffle($result);
-	
-		return array_slice($result, 0,6);
+		return array_slice($answer, 0,6);
 	}
 	
 	function getPersonalityDistance($firstArray, $secondArray){
-		$extrovert = $firstArray['ei'] - $secondArray['ei'];
-		$intuitive = $firstArray['nd'] - $secondArray['ns'];
-		$thinking = $firstArray['tf'] - $secondArray['tf'];
-		$judging = $firstArray['jp'] - $secondArray['jp'];
+		$extrovert = abs($firstArray['ei'] - $secondArray['ei']);
+		$intuitive = abs($firstArray['ns'] - $secondArray['ns']);
+		$thinking = abs($firstArray['tf'] - $secondArray['tf']);
+		$judging = abs($firstArray['jp'] - $secondArray['jp']);
 		$sum = $extrovert + $intuitive + $thinking + $judging;
 		return $sum / 400;
 	}
@@ -175,6 +223,10 @@ class User extends CI_Model {
 			$divisor = 1;
 		return 1 - ($dividend / $divisor);
 	}
+
+	function getBrandsDist($firstString, $SecondString){
+		return $this->getBrandsDistance(explode(" ", $firstString), explode(" ", $SecondString));
+	}
 	
 	function getAge($day, $month, $year){
 		$string = $year."-".$month."-".$day;
@@ -183,8 +235,5 @@ class User extends CI_Model {
 		return $from->diff($to)->y;
 	}
 	
-	function getArrayBrands(){
-		
-	}
 }
 ?>
