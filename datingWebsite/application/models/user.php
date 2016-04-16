@@ -118,6 +118,8 @@ class User extends CI_Model {
 		return array_slice($result, 0,6);
 	}
 	
+	// For the anonymous user
+	// Update iteration to get the next six. 
 	function getSearchedMatch($gender, $age, $brands, $personality, $iteration){
 		$ownPersonality = array('ei'=>100 - $personality['ei'],
 					'ns'=>100 - $personality['ns'],
@@ -131,6 +133,8 @@ class User extends CI_Model {
 		return $this->getMatch($data, $iteration, false);
 	}
 	
+	// For the user with a profile
+	// Update iteration to get the next six.
 	function getCompleteMatch($data, $iteration){
 		return $this->getMatch($data, $iteration, true);
 	}
