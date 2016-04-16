@@ -42,7 +42,7 @@
 			<br>
 			<div id="slider"></div>
 			
-			<input id='amount' type='text' readonly name='age' value='18 - 25' required>
+			<input id='amount' type='text' readonly name='age' value='18 - 25' readonly required>
 		</div>
 		
 		<div  class='descriptionForm'>

@@ -267,3 +267,19 @@ label{
   height:200px;
   overflow:auto;
 }
+
+.smallbox{
+	width:35px;
+}
+
+.left{
+	float:left;
+}
+
+.right{
+	float:right;
+}
+
+.registerForm{
+	width:40%;
+}
