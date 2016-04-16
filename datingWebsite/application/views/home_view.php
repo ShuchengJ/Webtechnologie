@@ -15,6 +15,7 @@ if(session_id() == ''){
 <script src="/datingWebsite/jquery-ui.min.js"></script>
 <script src="/datingWebsite/jquerysearch.js"></script>
 <script src="/datingWebsite/jquerydropdown.js"></script>
+<script src="/datingWebsite/jqueryregisterslider.js"></script>
 
 <title>Datadateorsomething</title>
 </head>
@@ -33,7 +34,7 @@ if(session_id() == ''){
 	
 	<fieldset class="searchfs">
 	<legend class="searchlegend">Age</legend>
-	<input type="text" id="age" name="age" readonly>
+	<input type="text" id="age" name="age" value="18 - 25" readonly>
 	<div id="slider-range"></div>
 	</fieldset>
   	
@@ -64,18 +65,22 @@ if(session_id() == ''){
 	
 	<fieldset class="searchfs">
 	<legend class="searchlegend">Personalty types</legend>
-	<div class="personalityBoxes">
-		<input type="radio" name="PersonEI" value="Extrovert" checked> Extrovert <br>
-		<input type="radio" name="PersonNS" value="Intuitive" checked> Intuitive <br>
-		<input type="radio" name="PersonFT" value="Thinking" checked> Thinking <br>
-  		<input type="radio" name="PersonJP" value="Judging" checked> Judging  	<br>
-  	</div>
-  	<div class="personalityBoxes">
-  		<input type="radio" name="PersonEI" value="Introvert"> Introvert<br>
-  		<input type="radio" name="PersonNS" value="Sensing"> Sensing<br>
-  		<input type="radio" name="PersonFT" value="Feeling"> Feeling<br>
-  		<input type="radio" name="PersonJP" value="Perceiving"> Perceiving<br>
-  	</div>
+		<div class="sliderPerso" id="sliderEI"></div>
+		<div class="left">Extrovert <input type="text" class="smallbox" id="PersonEI" name="PersonEI" value="100" readonly checked></div> 
+		<div class="right">Introvert <input type="text" class="smallbox" id="PersonI" name="PersonI" value="0" readonly> </div>
+		<br><br>
+		<div class="sliderPerso" id="sliderNS"></div>
+		<div class="left">Intuitive <input type="text" class="smallbox" id="PersonNS" name="PersonNS" value="100" readonly checked></div> 
+		<div class="right">Sensing <input type="text" class="smallbox" id="PersonS" name="PersonS" value="0" readonly> </div>
+		<br><br>
+		<div class="sliderPerso" id="sliderFT"></div>
+		<div class="left">Thinking <input type="text" class="smallbox" id="PersonFT" name="PersonFT" value="100" readonly checked></div> 
+		<div class="right">Feeling <input type="text" class="smallbox" id="PersonF" name="PersonF" value="0" readonly> </div>
+		<br><br>
+		<div class="sliderPerso" id="sliderJP"></div>
+		<div class="left">Judging <input type="text" class="smallbox" id="PersonJP" name="PersonJP" value="100" readonly checked></div> 
+		<div class="right">Perceiving <input type="text" class="smallbox" id="PersonP" name="PersonP" value="0" readonly> </div>
+		<br><br>
   	</fieldset>
 	
 	 <input type="submit" value="Search">

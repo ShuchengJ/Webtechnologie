@@ -64,8 +64,12 @@ class Home extends CI_Controller {
 	}
 	
 	function search(){
-		$gender = $this->input->post("gender");
-		$profiles = $this->user->getSearchedMatch($gender);
+		$personality = array('ei'=>$this->input->post('PersonEI'),
+				'ns'=>$this->input->post('PersonNS'),
+				'tf'=>$this->input->post('PersonFT'),
+				'jp'=>$this->input->post('PersonJP'));
+		$profiles = $this->user->getSearchedMatch($this->input->post("gender"),
+			$this->input->post("age"), $this->input->post("brands"), $personality, 0);
 		for ($x = 0; $x < count($profiles); $x++) {
 			$age = $this->getAge($profiles[$x]['year'],$profiles[$x]['month'],$profiles[$x]['day']);
 			$data[$x] = array('nickname'=>$profiles[$x]['nickname'],
@@ -100,3 +104,4 @@ class Home extends CI_Controller {
 		return $year_diff;
 	}
 }
+?>

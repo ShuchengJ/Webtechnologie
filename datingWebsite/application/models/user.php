@@ -118,53 +118,31 @@ class User extends CI_Model {
 		return array_slice($result, 0,6);
 	}
 	
-	function getSearchedMatch($gender){
-		
-		$this->db->select('nickname,gender,month,day,year,id');
-		$this->db->from('users');
-		if($gender != 'Both'){
-			$this->db->where('gender',$gender);
-		}
-		// Needs age
-		$query = $this -> db -> get();
-		$result = $query->result_array();
-		
-		//Sort them here
-		shuffle($result);
-		
-		return array_slice($result, 0,6);
+	function getSearchedMatch($gender, $age, $brands, $personality, $iteration){
+		$ownPersonality = array('ei'=>100 - $personality['ei'],
+					'ns'=>100 - $personality['ns'],
+					'tf'=>100 - $personality['tf'],
+					'jp'=>100 - $personality['jp']);
+		$data = array('interest'=>$gender, 
+				'age'=>$age,
+				'brands'=>$brands,
+				'personality'=>$ownPersonality,
+				'wanted'=>$personality);
+		return $this->getMatch($data, $iteration, false);
 	}
 	
 	function getCompleteMatch($data, $iteration){
-		// Gets the data from the first table
-		$this->db->select('nickname,day,month,year,gender,email,
-				brands,description');
-		$this->db->from('users');
-		$age = $this->getAge($data['day'], $data['month'], $data['year']);
-		$ageran = $data['age'];
-		$agerange = explode(" ", $ageran);
-		$minage = $agerange[0];
-		$maxage = $agerange[2];
-		
-		if($data['interest'] != 'Both')
-			$this->db->where('gender',$data['interest']);
-		$this->db->where('interest',$data['gender']);
-		$this->db->where('age >=', $minage);
-		$this->db->where('age <=', $maxage);
-		$this->db->where('agemin <=', $age);
-		$this->db->where('agemax >=', $age);
-		$this->db->where('email !=', $data['email']);
-		$this->db->or_where('interest','Both');
-		if($data['interest'] != 'Both')
-			$this->db->where('gender',$data['interest']);
-		$this->db->where('age >=', $minage);
-		$this->db->where('age <=', $maxage);
-		$this->db->where('agemin <=', $age);
-		$this->db->where('agemax >=', $age);
-		$this->db->where('email !=', $data['email']);
+		return $this->getMatch($data, $iteration, true);
+	}
 	
-		$query = $this -> db -> get();
-		$result = $query->result_array();
+	function getMatch($data, $iteration, $Complete){
+		// Gets the data from the first table
+		$result;
+		if($Complete)
+			$result = $this->databaseComplete($data);
+		else 
+			$result = $this->databaseSearch($data);
+		
 		if(!$result)
 			return $result;
 		
@@ -190,6 +168,7 @@ class User extends CI_Model {
 					'ns'=>$secondResult[$y]['wantedNS'],
 					'tf'=>$secondResult[$y]['wantedTF'],
 					'jp'=>$secondResult[$y]['wantedJP']);
+			$result['personality'] = $own;
 			$brandsDistance = $this->getBrandsDist($data['brands'], $result[$x]['brands']);
 			$atob = $this->getPersonalityDistance($data['personality'],$wanted);
 			$btoa = $this->getPersonalityDistance($own,$data['wanted']);
@@ -235,5 +214,53 @@ class User extends CI_Model {
 		return $from->diff($to)->y;
 	}
 	
+	function databaseComplete($data){
+		$this->db->select('nickname,age,day,month,year,gender,email,
+				brands,description');
+		$this->db->from('users');
+		$age = $this->getAge($data['day'], $data['month'], $data['year']);
+		$ageran = $data['age'];
+		$agerange = explode(" ", $ageran);
+		$minage = $agerange[0];
+		$maxage = $agerange[2];
+		
+		if($data['interest'] != 'Both')
+			$this->db->where('gender',$data['interest']);
+		$this->db->where('interest',$data['gender']);
+		$this->db->where('age >=', $minage);
+		$this->db->where('age <=', $maxage);
+		$this->db->where('agemin <=', $age);
+		$this->db->where('agemax >=', $age);
+		$this->db->where('email !=', $data['email']);
+		$this->db->or_where('interest','Both');
+		if($data['interest'] != 'Both')
+			$this->db->where('gender',$data['interest']);
+		$this->db->where('age >=', $minage);
+		$this->db->where('age <=', $maxage);
+		$this->db->where('agemin <=', $age);
+		$this->db->where('agemax >=', $age);
+		$this->db->where('email !=', $data['email']);
+		
+		$query = $this -> db -> get();
+		return $query->result_array();
+	}
+	
+	function databaseSearch($data){
+		$this->db->select('nickname,age,day,month,year,gender,email,
+				brands,description');
+		$this->db->from('users');
+		$ageran = $data['age'];
+		$agerange = explode(" ", $ageran);
+		$minage = $agerange[0];
+		$maxage = $agerange[2];
+		
+		if($data['interest'] != 'Both')
+			$this->db->where('gender',$data['interest']);
+		$this->db->where('age >=', $minage);
+		$this->db->where('age <=', $maxage);
+		
+		$query = $this -> db -> get();
+		return $query->result_array();
+	}
 }
 ?>
