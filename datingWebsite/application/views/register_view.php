@@ -1,4 +1,4 @@
-<script src="/datingWebsite/jquerydropdown.js"></script>
+<script src="<?php echo base_url();?>jquerydropdown.js"></script>
 <div class="content">
 
 	<?php

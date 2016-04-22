@@ -1,4 +1,4 @@
-<script src="/datingWebsite/jqueryregisterslider.js"></script>
+<script src="<?php echo base_url();?>jqueryregisterslider.js"></script>
 <div class="content">
 
 	<?php

@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="/datingWebsite/jquery-1.12.0.js"></script>
-<link rel="stylesheet" type="text/css" href="/datingWebsite/style.css">
-<link rel="stylesheet" href="/datingWebsite/jquery-ui.min.css">
-<script src="/datingWebsite/jquery-ui.min.js"></script>
+<script src="<?php echo base_url();?>jquery-1.12.0.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>style.css">
+<link rel="stylesheet" href="<?php echo base_url();?>jquery-ui.min.css">
+<script src="<?php echo base_url();?>jquery-ui.min.js"></script>
 
 <title>Datadateorsomething</title>
 </head>
