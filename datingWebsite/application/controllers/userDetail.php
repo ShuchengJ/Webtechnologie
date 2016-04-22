@@ -7,6 +7,7 @@ class UserDetail extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('connections','',TRUE);
+		$this->load->model('user','',TRUE);
 		$this->load->library('session');
 	}
 	
@@ -24,6 +25,10 @@ class UserDetail extends CI_Controller {
 		}
 		$profile = $this->session->userdata('likedPage');
 		$wantedUser = $this->session->userdata('matches')[$profile];
+		
+		$wantedUser = array_merge($wantedUser,$this->user->getUserInformation($wantedUser['email']));
+		unset($wantedUser['password']);
+		
 		$this->session->set_userdata('match',$wantedUser);
 		$this->load->view('header_view',$data);
 		$this->load->view('userDetail_view',$wantedUser);
