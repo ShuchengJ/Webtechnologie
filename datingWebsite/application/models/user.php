@@ -21,7 +21,6 @@ class User extends CI_Model {
 	}
 	
 	function register($userData){
-		//just name and password for now
 		
 		$nickname = $userData['nickname'];
 		$fullname = $userData['fullname'];
@@ -161,7 +160,8 @@ class User extends CI_Model {
 				'email'=>$data['email'],
 				'gender'=>$data['gender'],
 				'agemin'=>$data['agemin'],
-				'agemax'=>$data['agemax']
+				'agemax'=>$data['agemax'],
+				'ageReal'=>$data['age']
 		);
 		
 		
@@ -246,38 +246,7 @@ class User extends CI_Model {
 		$to   = new DateTime('today');
 		return $from->diff($to)->y;
 	}
-	
-	function databaseComplete2($data){
-		$this->db->select('nickname,age,day,month,year,gender,email,
-				brands,description');
-		$this->db->from('users');
-		$age = $this->getAge($data['day'], $data['month'], $data['year']);
-		$ageran = $data['age'];
-		$agerange = explode(" ", $ageran);
-		$minage = $agerange[0];
-		$maxage = $agerange[2];
-		
-		if($data['interest'] != 'Both')
-			$this->db->where('gender',$data['interest']);
-		$this->db->where('interest',$data['gender']);
-		$this->db->where('age >=', $minage);
-		$this->db->where('age <=', $maxage);
-		$this->db->where('agemin <=', $age);
-		$this->db->where('agemax >=', $age);
-		$this->db->where('email !=', $data['email']);
-		$this->db->or_where('interest','Both');
-		
-		if($data['interest'] != 'Both')
-			$this->db->where('gender',$data['interest']);
-		$this->db->where('age >=', $minage);
-		$this->db->where('age <=', $maxage);
-		$this->db->where('agemin <=', $age);
-		$this->db->where('agemax >=', $age);
-		$this->db->where('email !=', $data['email']);
-		
-		$query = $this -> db -> get();
-		return $query->result_array();
-	}
+
 	
 	function databaseComplete($data){
 		
@@ -294,9 +263,9 @@ class User extends CI_Model {
 		}
 		$this->db->where('age >=', $data['agemin']);
 		$this->db->where('age <=', $data['agemax']);
-		$this->db->where('agemin <=', $data['age']);
-		$this->db->where('agemax >=', $data['age']);
-		$this->db->where('email',$data['email']);
+		$this->db->where('agemin <=', $data['ageReal']);
+		$this->db->where('agemax >=', $data['ageReal']);
+		$this->db->where('email !=',$data['email']);
 		$query = $this -> db -> get();
 		return $query->result_array();
 	}

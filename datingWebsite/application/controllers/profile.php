@@ -62,6 +62,8 @@ class Profile extends CI_Controller {
 			);
 			$this->user->changeUserInformation($id,$userData);
 			$this->session->set_userdata('email',$this->input->post('email'));
+			$newUserData = array_merge($this->session->userdata('profile'),$userData);
+			$this->session->set_userdata('profile',$newUserData);
 			redirect('profile','auto');
 			
 	}

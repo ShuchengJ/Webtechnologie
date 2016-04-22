@@ -24,11 +24,11 @@ class VerifyLogin extends CI_Controller {
    		else
    		{
    			$profile = $this->user->getUserInformation($this->input->post('email')); //TODO:: this should be PK ID
-   			$currentUser = $this->session->userdata('profile')['id'];
+   			$currentUser = $this->session->userdata('profile')['email'];
 			$this->session->set_userdata('profile',$profile);
 			$this->session->set_userdata('like',$this->connections->getLikeInformation($currentUser));
-			
-   			redirect(site_url('home'),'auto');
+			echo var_dump($this->session->userdata('like'));
+   			//redirect(site_url('home'),'auto');
    		}
 	}
 	

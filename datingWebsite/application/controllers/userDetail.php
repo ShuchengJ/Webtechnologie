@@ -31,8 +31,8 @@ class UserDetail extends CI_Controller {
 	}
 	
 	function like(){
-		$currentUser = $this->session->userdata('profile')['id'];
-		$likedUser = $this->session->userdata('match')['id'];
+		$currentUser = $this->session->userdata('profile')['email'];
+		$likedUser = $this->session->userdata('match')['email'];
 		$this->connections->addLike($currentUser,$likedUser);
 		redirect('userDetail','local');
 	}

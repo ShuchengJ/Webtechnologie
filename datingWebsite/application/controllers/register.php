@@ -7,6 +7,7 @@ class Register extends CI_Controller {
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('user','',TRUE);
+		$this->load->model('connections','',TRUE);
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
 	}
@@ -83,6 +84,7 @@ class Register extends CI_Controller {
 				'jp'=>$this->input->post('PersonJP'));
 		$this->session->set_userdata('userData',$userData);
 		$this->user->register($userData);
+		$this->connections->register($userData);
 		$this->user->login($userData['email'],$userData['password']);
 		$this->session->set_userdata('logged_in',TRUE);
 		$this->session->set_userdata('email',$userData['email']);

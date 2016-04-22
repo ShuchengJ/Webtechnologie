@@ -18,7 +18,7 @@ class Home extends CI_Controller {
 		}else{
 			$data['loggedin'] = FALSE;
 		}
-		echo var_dump($this->session->userdata('profile'));
+		echo var_dump($this->session->userdata('like'));
 		$this->load->view('header_view',$data);
 		$this->load->view('home_view',$data);
 		

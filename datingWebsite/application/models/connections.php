@@ -9,9 +9,9 @@ class Connections extends CI_Model {
 		$this->db->from('connections');
 		$this->db->where('id',$user);
 		$query = $this -> db -> get();
-		
+
 		//add new like
-		$likedField = $query->row()->likes;
+		$likedField = $query->row('likes');
 		$likedField .= ','.$liked; 
 		$input['likes'] = $likedField;
 		
@@ -28,7 +28,7 @@ class Connections extends CI_Model {
 		$this->db->where('id',$user);
 		$query = $this -> db -> get();
 		
-		$likedByField = $query->row()->likedby;
+		$likedByField = $query->row('likedby');
 		$likedByField .= ','.$likedby;
 		$input['likedby'] = $likedByField;
 		
@@ -43,12 +43,18 @@ class Connections extends CI_Model {
 		$query = $this -> db -> get();
 		
 		
-		$likes =  $query->row()->likes;
-		$likedby = $query->row()->likedby;
+		$likes =  $query->row('likes');
+		$likedby = $query->row('likedby');
 		
 		return array('likes'=>explode(',', $likes),
 					'likedby'=>explode(',',$likedby)
 		);
+	}
+	
+	function register($userData){
+		$statement = 'INSERT INTO connections (id,likes,likedby)
+				VALUES ('.$this->db->escape($userData['email']).'," "," ")';
+		$query = $this->db->query($statement);
 	}
 }
 ?>
