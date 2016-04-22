@@ -77,10 +77,10 @@ class Register extends CI_Controller {
 	
 	function thirdStep(){
 		$userData = $this->session->userdata('userData');
-		$userData['wanted'] = array('ei'=>$this->input->post('PersonEI'),
-				'ns'=>$this->input->post('PersonNS'),
-				'tf'=>$this->input->post('PersonFT'),
-				'jp'=>$this->input->post('PersonJP'));
+		$userData['wanted'] = array('ei'=>100 - $userData['personality']['ei'],
+				'ns'=>100 - $userData['personality']['ns'],
+				'tf'=>100 - $userData['personality']['tf'],
+				'jp'=>100 - $userData['personality']['jp']);
 		$this->session->set_userdata('userData',$userData);
 		$this->user->register($userData);
 		$this->user->login($userData['email'],$userData['password']);
