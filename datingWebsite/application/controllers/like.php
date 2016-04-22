@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Like extends CI_Controller  {
 
 	function __construct(){
 		parent::__construct();
@@ -20,7 +20,7 @@ class Home extends CI_Controller {
 		}
 		echo var_dump($this->session->userdata('like'));
 		$this->load->view('header_view',$data);
-		$this->load->view('home_view',$data);
+		$this->load->view('like_view',$data);
 		
 		
 	}
@@ -37,18 +37,21 @@ class Home extends CI_Controller {
 		for ($x = 0; $x < count($profiles); $x++) {
 			if($loggedin){
 			$status = $this->checkLikes($profiles[$x]['email']);
-			}else{
-			$status = 0;
 			}
+			
+			
 			$age = $this->getAge($profiles[$x]['year'],$profiles[$x]['month'],$profiles[$x]['day']);
-			$data[$x] = array('nickname'=>$profiles[$x]['nickname'],
+			if($status == 2){
+			$data[] = array('nickname'=>$profiles[$x]['nickname'],
 							  'gender'=>$profiles[$x]['gender'],
 							  'id'=>$profiles[$x]['email'],
 							  'age'=>$age,
 							  'image'=>'none', //TODO add db and retrieval images
 							  'status'=>$status
 			);
+			}
 		}
+		
 		$this->session->set_userdata('matches',$profiles);
 		if(count($data) != 0){
 			echo json_encode($data);
@@ -74,27 +77,6 @@ class Home extends CI_Controller {
 		}
 		return $output;
 	}
-	
-	function search(){
-		$personality = array('ei'=>$this->input->post('PersonEI'),
-				'ns'=>$this->input->post('PersonNS'),
-				'tf'=>$this->input->post('PersonFT'),
-				'jp'=>$this->input->post('PersonJP'));
-		$profiles = $this->user->getSearchedMatch($this->input->post("gender"),
-			$this->input->post("age"), $this->input->post("brands"), $personality, 0);
-		for ($x = 0; $x < count($profiles); $x++) {
-			$age = $this->getAge($profiles[$x]['year'],$profiles[$x]['month'],$profiles[$x]['day']);
-			$data[$x] = array('nickname'=>$profiles[$x]['nickname'],
-							  'gender'=>$profiles[$x]['gender'],
-							  'id'=>$profiles[$x]['email'],
-							  'age'=>$age,
-							  'image'=>'none'
-			);
-		}
-		$this->session->set_userdata('matches',$profiles);
-		echo json_encode($data);
-	}
-
 	
 	function isLoggedIn(){
 		echo $this->session->userdata('logged_in');

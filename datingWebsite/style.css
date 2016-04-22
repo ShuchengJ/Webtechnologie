@@ -25,8 +25,18 @@ body {
 	display:flex;
 	width:40%;
 	overflow:hidden;
-	background-color:red;
+	background-color:gray;
 	margin:0% 20% 0% 40%;
+}
+
+.menu a{
+	text-align:center;
+	background-color:blue;
+	color:#c8c8c8;
+	text-decoration:none;
+	padding:0.5em 1em;
+	margin: 0px auto;
+	display:block;
 }
 
 .content{

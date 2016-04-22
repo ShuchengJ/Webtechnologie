@@ -18,8 +18,8 @@ class VerifyLogin extends CI_Controller {
 		
    		if($this->form_validation->run() == FALSE){
    			$data = array('loggedin'=>FALSE);
-   			$this->load->view('Header_view',$data);
-   			$this->load->view('Login_view');
+   			$this->load->view('header_view',$data);
+   			$this->load->view('login_view');
    		}
    		else
    		{

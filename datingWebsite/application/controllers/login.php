@@ -20,8 +20,8 @@ class Login extends CI_Controller {
 		
 		$this->load->database();
 		$this->load->helper(array('form'));
-		$this->load->view('Header_view',$data);
-		$this->load->view('Login_view');
+		$this->load->view('header_view',$data);
+		$this->load->view('login_view');
 	}
 }
 ?>

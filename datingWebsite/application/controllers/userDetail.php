@@ -25,8 +25,8 @@ class UserDetail extends CI_Controller {
 		$profile = $this->session->userdata('likedPage');
 		$wantedUser = $this->session->userdata('matches')[$profile];
 		$this->session->set_userdata('match',$wantedUser);
-		$this->load->view('Header_view',$data);
-		$this->load->view('UserDetail_view',$wantedUser);
+		$this->load->view('header_view',$data);
+		$this->load->view('userDetail_view',$wantedUser);
 
 	}
 	

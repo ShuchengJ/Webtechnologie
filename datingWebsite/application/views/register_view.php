@@ -57,7 +57,7 @@
         		<div class="listofbrands">
            			<ul>
                			<?php
-           				$file = fopen(FCPATH.'brands.txt','r');
+           				$file = fopen($_SERVER['DOCUMENT_ROOT'].'/datingwebsite/brands.txt','r');
            				while ($line = fgets($file)) {
            				  echo("<li><input type=\"checkbox\" value=".$line.">"."$line"."</li>");
            				}
