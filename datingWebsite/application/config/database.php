@@ -74,7 +74,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'sqlite:C:\Users\Sander\Desktop\dbweb/data.db',
+	'dsn'	=> 'sqlite:'.APPPATH.'/Database/data.db',
 	'hostname' => '',
 	'username' => '',
 	'password' => '',
