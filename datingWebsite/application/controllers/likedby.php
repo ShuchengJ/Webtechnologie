@@ -19,8 +19,8 @@ class Likedby extends CI_Controller  {
 			$data['loggedin'] = FALSE;
 		}
 		echo var_dump($this->session->userdata('like'));
-		$this->load->view('header_view',$data);
-		$this->load->view('likedby_view',$data);
+		$this->load->view('Header_view',$data);
+		$this->load->view('Likedby_view',$data);
 		
 		
 	}

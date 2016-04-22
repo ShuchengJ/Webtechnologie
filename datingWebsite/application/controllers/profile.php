@@ -22,8 +22,8 @@ class Profile extends CI_Controller {
 			$data['loggedin'] = FALSE;
 		}
 		 
-		$this->load->view('header_view',$data);
-		$this->load->view('profile_view',$data);	
+		$this->load->view('Header_view',$data);
+		$this->load->view('Profile_view',$data);	
 		//$this->load->view('upload_form', array('error' => ' ' ));
 		
 	}

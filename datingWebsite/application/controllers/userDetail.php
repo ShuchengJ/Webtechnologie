@@ -30,8 +30,8 @@ class UserDetail extends CI_Controller {
 		unset($wantedUser['password']);
 		
 		$this->session->set_userdata('match',$wantedUser);
-		$this->load->view('header_view',$data);
-		$this->load->view('userDetail_view',$wantedUser);
+		$this->load->view('Header_view',$data);
+		$this->load->view('UserDetail_view',$wantedUser);
 
 	}
 	
@@ -39,7 +39,7 @@ class UserDetail extends CI_Controller {
 		$currentUser = $this->session->userdata('profile')['email'];
 		$likedUser = $this->session->userdata('match')['email'];
 		$this->connections->addLike($currentUser,$likedUser);
-		redirect('userDetail','local');
+		redirect('UserDetail','local');
 	}
 }
 ?>

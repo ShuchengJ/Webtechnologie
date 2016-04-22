@@ -19,8 +19,8 @@ class Home extends CI_Controller {
 			$data['loggedin'] = FALSE;
 		}
 		echo var_dump($this->session->userdata('like'));
-		$this->load->view('header_view',$data);
-		$this->load->view('home_view',$data);
+		$this->load->view('Header_view',$data);
+		$this->load->view('Home_view',$data);
 		
 		
 	}
@@ -103,7 +103,7 @@ class Home extends CI_Controller {
 	function logout(){
 		$this->session->unset_userdata('logged_in');
 		session_destroy();
-		redirect('home','refresh');
+		redirect('Home','refresh');
 	}
 	
 	function getAge($year,$month,$day){
