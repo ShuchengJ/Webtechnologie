@@ -94,22 +94,29 @@ class User extends CI_Model {
 		$this->db->where('email',$key);
 		$this->db->limit(1);
 		
-		$query = $this -> db -> get();
+		$query1 = $this -> db -> get();
 		
-		if($query -> num_rows() == 1){
-			return $query->result_array()[0];
+		$this->db->select();
+		$this->db->from('personalities');
+		$this->db->where('id',$key);
+		$this->db->limit(1);
+		
+		$query2 = $this -> db -> get();
+		
+		if($query1 -> num_rows() == 1 && $query2 -> num_rows() == 1){
+			return array_merge($query1->result_array()[0],$query2->result_array()[0]);
 		}else{
 			return false;
 		}
 	}
 	
 	function changeUserInformation($key,$userData){
-		$this->db->where('id',$key);
+		$this->db->where('email',$key);
 		$this->db->update('users',$userData);
 	}
 	
 	function getRandomMatch(){
-		$this->db->select('nickname, gender,month,day,year,id');
+		$this->db->select('nickname, gender,month,day,year,email');
 		$this->db->from('users');
 		$query = $this -> db -> get();
 		
@@ -136,7 +143,29 @@ class User extends CI_Model {
 	// For the user with a profile
 	// Update iteration to get the next six.
 	function getCompleteMatch($data, $iteration){
-		return $this->getMatch($data, $iteration, true);
+		$personality = array('ei'=>$data['ownEI'],
+				'ns'=>$data['ownNS'],
+				'tf'=>$data['ownTF'],
+				'jp'=>$data['ownJP']);
+		
+		$ownPersonality = array('ei'=>100 - $data['ownEI'],
+				'ns'=>100 - $data['ownNS'],
+				'tf'=>100 - $data['ownTF'],
+				'jp'=>100 - $data['ownJP']);
+		
+		$data1 = array('interest'=>$data['interest'],
+				'age'=>$data['agemin']." 0 ".$data['agemax'],
+				'brands'=>$data['brands'],
+				'personality'=>$ownPersonality,
+				'wanted'=>$personality,
+				'email'=>$data['email'],
+				'gender'=>$data['gender'],
+				'agemin'=>$data['agemin'],
+				'agemax'=>$data['agemax']
+		);
+		
+		
+		return $this->getMatch($data1, $iteration, true);
 	}
 	
 	function getMatch($data, $iteration, $Complete){
@@ -218,7 +247,7 @@ class User extends CI_Model {
 		return $from->diff($to)->y;
 	}
 	
-	function databaseComplete($data){
+	function databaseComplete2($data){
 		$this->db->select('nickname,age,day,month,year,gender,email,
 				brands,description');
 		$this->db->from('users');
@@ -237,6 +266,7 @@ class User extends CI_Model {
 		$this->db->where('agemax >=', $age);
 		$this->db->where('email !=', $data['email']);
 		$this->db->or_where('interest','Both');
+		
 		if($data['interest'] != 'Both')
 			$this->db->where('gender',$data['interest']);
 		$this->db->where('age >=', $minage);
@@ -245,6 +275,28 @@ class User extends CI_Model {
 		$this->db->where('agemax >=', $age);
 		$this->db->where('email !=', $data['email']);
 		
+		$query = $this -> db -> get();
+		return $query->result_array();
+	}
+	
+	function databaseComplete($data){
+		
+		$this->db->select('nickname,age,day,month,year,gender,email,gender,interest,
+				brands,description');
+		$this->db->from('users');
+		
+		$where = "(interest='Both' OR interest='".$data['gender']."')";
+		$this->db->where($where);
+		
+		
+		if($data['interest'] != 'Both'){
+			$this->db->where('gender',$data['interest']);
+		}
+		$this->db->where('age >=', $data['agemin']);
+		$this->db->where('age <=', $data['agemax']);
+		$this->db->where('agemin <=', $data['age']);
+		$this->db->where('agemax >=', $data['age']);
+		$this->db->where('email',$data['email']);
 		$query = $this -> db -> get();
 		return $query->result_array();
 	}

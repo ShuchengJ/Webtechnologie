@@ -18,7 +18,7 @@ class Home extends CI_Controller {
 		}else{
 			$data['loggedin'] = FALSE;
 		}
-		
+		echo var_dump($this->session->userdata('profile'));
 		$this->load->view('header_view',$data);
 		$this->load->view('home_view',$data);
 		
@@ -26,21 +26,33 @@ class Home extends CI_Controller {
 	}
 	
 	function match_get(){
-		
+		$loggedin = $this->session->userdata('logged_in');
+		if(!$loggedin){
 		$profiles = $this->user->getRandomMatch();
+		}else{
+			
+			$profiles = $this->user->getCompleteMatch($this->session->userdata('profile'),0);
+		}
+		
 		for ($x = 0; $x < count($profiles); $x++) {
-			$status = $this->checkLikes($profiles[$x]['id']);
+			if($loggedin){
+			$status = $this->checkLikes($profiles[$x]['email']);
+			}else{
+			$status = 0;
+			}
 			$age = $this->getAge($profiles[$x]['year'],$profiles[$x]['month'],$profiles[$x]['day']);
 			$data[$x] = array('nickname'=>$profiles[$x]['nickname'],
 							  'gender'=>$profiles[$x]['gender'],
-							  'id'=>$profiles[$x]['id'],
+							  'id'=>$profiles[$x]['email'],
 							  'age'=>$age,
 							  'image'=>'none', //TODO add db and retrieval images
 							  'status'=>$status
 			);
 		}
 		$this->session->set_userdata('matches',$profiles);
-		echo json_encode($data);
+		if(count($data) != 0){
+			echo json_encode($data);
+		}
 	}
 	//see if user likes / is liked by this user
 	//0 no likes
@@ -74,7 +86,7 @@ class Home extends CI_Controller {
 			$age = $this->getAge($profiles[$x]['year'],$profiles[$x]['month'],$profiles[$x]['day']);
 			$data[$x] = array('nickname'=>$profiles[$x]['nickname'],
 							  'gender'=>$profiles[$x]['gender'],
-							  'id'=>$profiles[$x]['id'],
+							  'id'=>$profiles[$x]['email'],
 							  'age'=>$age,
 							  'image'=>'none'
 			);

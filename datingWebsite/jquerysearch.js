@@ -19,6 +19,7 @@ $(document).ready(function () {
 	    dataType:"json",
 	    success: function (data){
 	    	if($logged_in){
+	    		
 	    		for(i = 0; i < data.length; i++){
 	    	
 	    		if(data[i].image != 'none'){
@@ -45,7 +46,7 @@ $(document).ready(function () {
 	    	for(j = data.length; j < 6; j++){
         		$(".match#"+j).html("no more matches!");
         	}
-	    }
+	    },
 	});
 	}
 	
@@ -88,7 +89,9 @@ $(document).ready(function () {
 	            }
 	        });
 	    });
-	
+	$('.zomaar').click(function(){
+		getMatches();
+	})
 
 	$( "#slider-range" ).slider({
 	      range: true,

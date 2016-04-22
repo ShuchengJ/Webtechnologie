@@ -8,7 +8,6 @@ alle informatie over die gebruiker is in ieder geval al op te halen dus yay
 echo "<tr><td>nickname</td><td>$nickname</td></tr>";
 echo "<tr><td>geslacht</td><td>$gender</td></tr>";
 echo "<tr><td>geboortedatum</td><td>$day</td></tr>";
-echo "<tr><td>beschrijving</td><td>$id</td></tr>";
 ?>
 </table>
 </div>
