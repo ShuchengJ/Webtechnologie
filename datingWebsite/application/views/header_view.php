@@ -11,16 +11,16 @@
 </head>
 <body>
 <div class="header">
-	<a href="/datingWebsite/index.php/home" class="home" >WebsiteName</a>
+	<a href="<?php echo base_url();?>index.php/home" class="home" >WebsiteName</a>
 	<div class="menu"> 
 	<?php 
-		echo '<a href="/datingWebsite/index.php/home"><span>Home</span></a>';
+		echo '<a href="'.base_url().'index.php/home"><span>Home</span></a>';
 		if(!$loggedin){
-		echo '<a href="/datingWebsite/index.php/login"><span>Login</span></a>';
-		echo '<a href="/datingWebsite/index.php/register"><span>Register</span></a>';
+		echo '<a href="'.base_url().'index.php/login"><span>Login</span></a>';
+		echo '<a href="'.base_url().'index.php/register"><span>Register</span></a>';
 		}else{
-		echo '<a href="/datingWebsite/index.php/profile">profile</a>';
-		echo '<a href="/datingWebsite/index.php/home/logout">Logout</a>';
+		echo '<a href="'.base_url().'index.php/profile">profile</a>';
+		echo '<a href="'.base_url().'index.php/home/logout">Logout</a>';
 		echo $email;
 		}
 	?>

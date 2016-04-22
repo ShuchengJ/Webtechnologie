@@ -19,8 +19,8 @@ class Home extends CI_Controller {
 			$data['loggedin'] = FALSE;
 		}
 		echo var_dump($this->session->userdata('profile'));
-		$this->load->view('header_view',$data);
-		$this->load->view('home_view',$data);
+		$this->load->view('Header_view',$data);
+		$this->load->view('Home_view',$data);
 		
 		
 	}
