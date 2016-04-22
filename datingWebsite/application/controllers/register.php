@@ -17,7 +17,7 @@ class Register extends CI_Controller {
 		
 		$this->load->helper(array('form'));
 		$data['loggedin'] = $this->session->userdata('logged_in');
-		$this->load->view('header_view',$data);
+		$this->load->view('Header_view',$data);
 		if(null == ($this->session->userdata('register_step'))){
 			$this->session->set_userdata('register_step','1');
 			$this->session->set_userdata('error',array('error'=>false));
@@ -26,10 +26,10 @@ class Register extends CI_Controller {
 		$step = $this->session->userdata('register_step');
 		switch ($step){
 			case 1: $error = $this->session->userdata('error'); 
-				$this->load->view('register_view',$error); break;
-			case 2: $this->load->view('register2_view',$this->generateQuestions()); break;
+				$this->load->view('Register_view',$error); break;
+			case 2: $this->load->view('Register2_view',$this->generateQuestions()); break;
 			case 3: $personality = $this->session->userdata('userData')['personality'];
-				$this->load->view('register3_view',$personality); break;
+				$this->load->view('Register3_view',$personality); break;
 			default: $this->session->set_userdata('register_step','1');
 		}
 	}
@@ -78,10 +78,10 @@ class Register extends CI_Controller {
 	
 	function thirdStep(){
 		$userData = $this->session->userdata('userData');
-		$userData['wanted'] = array('ei'=>$this->input->post('PersonEI'),
-				'ns'=>$this->input->post('PersonNS'),
-				'tf'=>$this->input->post('PersonFT'),
-				'jp'=>$this->input->post('PersonJP'));
+		$userData['wanted'] = array('ei'=>100 - $userData['personality']['ei'],
+				'ns'=>100 - $userData['personality']['ns'],
+				'tf'=>100 - $userData['personality']['tf'],
+				'jp'=>100 - $userData['personality']['jp']);
 		$this->session->set_userdata('userData',$userData);
 		$this->user->register($userData);
 		$this->connections->register($userData);
@@ -92,7 +92,7 @@ class Register extends CI_Controller {
 	}
 	
 	function generateQuestions(){
-		$file = fopen($_SERVER['DOCUMENT_ROOT'].'/datingwebsite/questions.txt','r');
+		$file = fopen(FCPATH.'questions.txt','r');
 		while ($line = fgets($file)) {
 			$line = substr($line, 0 , -2);
 			$returnArray[$line] = ['n' => fgets($file),

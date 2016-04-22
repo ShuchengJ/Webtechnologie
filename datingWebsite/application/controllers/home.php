@@ -21,6 +21,7 @@ class Home extends CI_Controller {
 		echo var_dump($this->session->userdata('like'));
 		$this->load->view('header_view',$data);
 		$this->load->view('home_view',$data);
+
 		
 		
 	}
