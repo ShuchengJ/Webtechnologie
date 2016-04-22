@@ -5,9 +5,15 @@ alle informatie over die gebruiker is in ieder geval al op te halen dus yay
 <div>
 <table>
 <?php
-echo "<tr><td>nickname</td><td>$nickname</td></tr>";
-echo "<tr><td>geslacht</td><td>$gender</td></tr>";
-echo "<tr><td>geboortedatum</td><td>$day</td></tr>";
+echo "<tr><td>Nickname</td><td>$nickname</td></tr>";
+echo "<tr><td>Gender</td><td>$gender</td></tr>";
+echo "<tr><td>Birthday</td><td>$day - $month - $year</td></tr>";
+echo "<tr><td>Description</td><td>$description</td></tr>";
+echo "<tr><td>Age preference</td><td>$agemin - $agemax</td></tr>";
+echo "<tr><td>Gender preference</td><td>$interest</td></tr>";
+echo "<tr><td>Personality</td><td>$ei $ns $tf $jp</td></tr>";
+echo "<tr><td>Personality preference</td><td>$ownEI - $ownNS - $ownTF - $ownJP</td></tr>";
+echo "<tr><td>Brands</td><td>$brands</td></tr>";
 ?>
 </table>
 </div>
