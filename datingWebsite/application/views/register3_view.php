@@ -2,9 +2,13 @@
 <div class="content">
 
 	<?php
+	if($error['error']){
+		$string = strip_tags($error['errortext']);
+		echo '<p class="error">'.$string.'</p>';
+	}
 	$type = "(";
 	echo "You are ";
-	if($ei < 49){
+	if($personality['ei'] < 49){
 		echo "Extraversion ";
 		$type .= "E";
 	}
@@ -12,7 +16,7 @@
 		echo "Introversion ";
 		$type .= "I";
 	}
-	if($ns < 49){
+	if($personality['ns'] < 49){
 		echo "Intuition  ";
 		$type .= "N";
 	}
@@ -20,7 +24,7 @@
 		echo "Sensing ";
 		$type .= "S";
 	}
-	if($tf < 49){
+	if($personality['tf'] < 49){
 		echo "Thinking ";
 		$type .= "T";
 	}
@@ -28,7 +32,7 @@
 		echo "Feeling ";
 		$type .= "F";
 	}
-	if($jp < 49){
+	if($personality['jp'] < 49){
 		echo "Judging ";
 		$type .= "J";
 	}
@@ -44,7 +48,7 @@
 	<a target="_blank" href='https://en.wikipedia.org/wiki/Myers%E2%80%93Briggs_Type_Indicator' class="normal">More information can be found here.</a>
 	<br>
 	What personality type are you looking for?
-	<form method="post" action="register/thirdStep">
+	<?php echo form_open_multipart('register/thirdStep');?>
 	
 		<div class="registerForm">
 			<div class="sliderPerso" id="sliderEI"></div>
@@ -63,13 +67,13 @@
 			<div class="left">Judging <input type="text" class="smallbox" id="PersonJP" name="PersonJP" value="100" readonly checked></div> 
 			<div class="right">Perceiving <input type="text" class="smallbox" id="PersonP" name="PersonP" value="0" readonly> </div>
 			<br><br>
+			
+			Upload a profile picture! (.jpg or .png)
+			<input type="file" name="userfile" accept=".jpg,.png">
+			<br><br>
+			
 			<input type="submit" value="CREATE!">
 		</div>
-	</form>
-	
-	
-	<?php 
-	echo $this->session->userdata('logged_in');
-	?>
+		<?php echo form_close();?>
 </div>
 

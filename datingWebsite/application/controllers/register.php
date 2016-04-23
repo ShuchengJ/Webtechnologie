@@ -9,7 +9,9 @@ class Register extends CI_Controller {
 		$this->load->model('user','',TRUE);
 		$this->load->model('connections','',TRUE);
 		$this->load->library('form_validation');
+		$this->load->helper(array('form', 'url'));
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
+
 	}
 	
 	function index()
@@ -29,7 +31,8 @@ class Register extends CI_Controller {
 				$this->load->view('Register_view',$error); break;
 			case 2: $this->load->view('Register2_view',$this->generateQuestions()); break;
 			case 3: $personality = $this->session->userdata('userData')['personality'];
-				$this->load->view('Register3_view',$personality); break;
+				$data = array('personality'=>$personality,'error'=>$this->session->userdata('error'));
+				$this->load->view('Register3_view',$data); break;
 			default: $this->session->set_userdata('register_step','1');
 		}
 	}
@@ -78,6 +81,18 @@ class Register extends CI_Controller {
 	
 	function thirdStep(){
 		$userData = $this->session->userdata('userData');
+		
+		$config['upload_path'] = './';
+		$config['file_name'] = $userData['email'].".png";
+		$config['allowed_types'] = 'jpg|png';
+		$this->load->library('upload', $config);
+		if (!$this->upload->do_upload())
+		{
+			$this->session->set_userdata('error',array('error'=>true,'errortext'=>$this->upload->display_errors()));
+			redirect('Register','auto');
+		}
+		$this->session->set_userdata('error',array('error'=>false));
+		
 		$userData['wanted'] = array('ei'=>$this->input->post('PersonEI'),
 				'ns'=>$this->input->post('PersonNS'),
 				'tf'=>$this->input->post('PersonFT'),

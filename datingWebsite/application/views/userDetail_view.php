@@ -11,9 +11,7 @@ if($loggedin)
 {
 	//$file_headers = @get_headers(base_url().$email.".jpg");
 	//print_r($file_headers);
-	if(file_exists($email.".jpg")) 
-		echo "<img class=images src='../".$email.".jpg'>";
-	elseif (file_exists($email.".png"))
+	if (file_exists($email.".png"))
 		echo "<img class=images src='../".$email.".png'>";
 	else 
 		echo "<img class=images src='../picture".$gender.".png'>";
