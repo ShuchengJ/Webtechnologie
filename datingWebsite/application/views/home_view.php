@@ -29,7 +29,6 @@ if(session_id() == ''){
 	<input type="radio" name="gender" value="Man" required/> male
 	<input type="radio" name="gender" value="Woman"/> female 
 	<input type="radio" name="gender" value="Both" checked/> any<br>
-	
 	</fieldset>
 	
 	<fieldset class="searchfs">
@@ -113,7 +112,7 @@ if(session_id() == ''){
 	</form>
 	</div>
 	
-	<div class='zomaar'>hoi</div>
+	<div class='zomaar'></div>
 	</div>
 </div>
 </body>

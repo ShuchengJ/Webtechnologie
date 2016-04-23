@@ -18,7 +18,6 @@ class Home extends CI_Controller {
 		}else{
 			$data['loggedin'] = FALSE;
 		}
-		echo var_dump($this->session->userdata('like'));
 		$this->load->view('Header_view',$data);
 		$this->load->view('Home_view',$data);
 		
@@ -30,10 +29,8 @@ class Home extends CI_Controller {
 		if(!$loggedin){
 		$profiles = $this->user->getRandomMatch();
 		}else{
-			
 			$profiles = $this->user->getCompleteMatch($this->session->userdata('profile'),0);
 		}
-		
 		for ($x = 0; $x < count($profiles); $x++) {
 			if($loggedin){
 			$status = $this->checkLikes($profiles[$x]['email']);
@@ -45,6 +42,8 @@ class Home extends CI_Controller {
 							  'gender'=>$profiles[$x]['gender'],
 							  'id'=>$profiles[$x]['email'],
 							  'age'=>$age,
+							  'description'=>$profiles[$x]['description'],
+							  'brands'=>$profiles[$x]['brands'],
 							  'image'=>'none', //TODO add db and retrieval images
 							  'status'=>$status
 			);
@@ -80,15 +79,31 @@ class Home extends CI_Controller {
 				'ns'=>$this->input->post('PersonNS'),
 				'tf'=>$this->input->post('PersonFT'),
 				'jp'=>$this->input->post('PersonJP'));
-		$profiles = $this->user->getSearchedMatch($this->input->post("gender"),
+		if($this->session->userdata('logged_in')){
+			$status = $this->checkLikes($profiles[$x]['email']);
+			$data = $this->session->userdata('profile');
+			$ownPersonality = array('ei'=>100 - $data['ownEI'],
+					'ns'=>100 - $data['ownNS'],
+					'tf'=>100 - $data['ownTF'],
+					'jp'=>100 - $data['ownJP']);
+			$profiles = $this->user->getSearchedCompleteMatch($this->input->post("gender"),
+			$this->input->post("age"), $this->input->post("brands"), $ownPersonality, $personality, 0);
+		}
+		else{
+			$profiles = $this->user->getSearchedMatch($this->input->post("gender"),
 			$this->input->post("age"), $this->input->post("brands"), $personality, 0);
+			$status = 0;
+		}
 		for ($x = 0; $x < count($profiles); $x++) {
 			$age = $this->getAge($profiles[$x]['year'],$profiles[$x]['month'],$profiles[$x]['day']);
 			$data[$x] = array('nickname'=>$profiles[$x]['nickname'],
 							  'gender'=>$profiles[$x]['gender'],
 							  'id'=>$profiles[$x]['email'],
 							  'age'=>$age,
-							  'image'=>'none'
+							  'description'=>$profiles[$x]['description'],
+							  'brands'=>$profiles[$x]['brands'],
+							  'image'=>'none', //TODO add db and retrieval images
+							  'status'=>$status
 			);
 		}
 		$this->session->set_userdata('matches',$profiles);

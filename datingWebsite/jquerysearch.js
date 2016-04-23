@@ -28,9 +28,7 @@ $(document).ready(function () {
 	    			$image = '../picture'+data[i].gender+'.png';
 	    		}
 	    		$(".match#"+i).html("<img src='" + $image + "' height=150px width=150px id=" + i + "><br>" +
-						"nickname: " + data[i].nickname + 
-						"<br>" + 
-						"gender: " + data[i].gender + "   " + data[i].age);
+	    				matchString(data));
 	    		
 	    		$(".match#"+i).addClass("status"+data[i].status);
 	    		}
@@ -38,9 +36,7 @@ $(document).ready(function () {
 	    	}else{
 	    	for(i = 0; i < data.length; i++){
 	    		$(".match#"+i).html("<img src='../picture"+data[i].gender+".png' height=150px width=150px id=" + i + "><br>" +
-	    							"nickname: " + data[i].nickname + 
-	    							"<br>" + 
-	    							"gender: " + data[i].gender  + "   " + data[i].age);
+	    				matchString(data));
 	    		}
 	    	}
 	    	for(j = data.length; j < 6; j++){
@@ -67,16 +63,12 @@ $(document).ready(function () {
 	    	    			$image = '../picture'+data[i].gender+'.png';
 	    	    		}
 	    	    		$(".match#"+i).html("<a href='home/detailUser'> <img src='" + $image + "' height=150px width=150px>" +
-	    						"nickname: " + data[i].nickname + 
-	    						"<br>" + 
-	    						"gender: " + data[i].gender  + "   " + data[i].age);
+	    	    				matchString(data));
 	    	    		}
 	    	    	}else{
 	    	    	for(i = 0; i < data.length; i++){
 	    	    		$(".match#"+i).html("<img src='../picture"+data[i].gender+".png' height=150px width=150px><br>" +
-	    	    							"nickname: " + data[i].nickname + 
-	    	    							"<br>" + 
-	    	    							"gender: " + data[i].gender  + "   " + data[i].age);
+	    	    				matchString(data));
 	    	    		}
 	    	    	}
 	            	for(j = data.length; j < 6; j++){
@@ -92,12 +84,27 @@ $(document).ready(function () {
 	$('.zomaar').click(function(){
 		getMatches();
 	})
-
+	
+	function matchString(data){
+		var description = "None";
+		if(data[i].description)
+			description = data[i].description.split('.')[0] + ".";
+		var brands = "None";
+		if(data[i].brands)
+			brands = data[i].brands.split(' ', 5).join(" ");
+		return 	"Nickname: " + data[i].nickname + "<br>" + 
+				"Gender: " + data[i].gender + "<br>" + 
+				"Age: " + data[i].age + "<br>" + 
+				"Description: " + description + "<br>" + 
+				"Personality: " + data[i].gender + "<br>" + 
+				"Brands: " + brands;
+	}
+	
 	$( "#slider-range" ).slider({
 	      range: true,
 	      min: 18,
 	      max: 100,
-	      values: [ 18, 100 ],
+	      values: [ 18, 25 ],
 	      slide: function( event, ui ) {
 	        $( "#age" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
 	      }

@@ -151,14 +151,14 @@ h2{
 
 .registerForm{
 	float:left;
-	display:inline-block;
-	width:auto;
 	padding:10px;
+	margin-left:15px;
 }
+
 .descriptionForm{
-	display:block;
-	clear:both;
+	clear:left;
 	padding:10px;
+	width:95%;
 }
 
 
@@ -223,6 +223,8 @@ label{
 
 #slider { 
 	margin:10px 25px 10px 5px; 
+	background-color:pink;
+	width:95%;
 }
 
 .ui-slider .ui-slider-handle {
@@ -293,4 +295,12 @@ label{
 
 .registerForm{
 	width:40%;
+}
+
+#age{
+	width:100%;
+}
+
+#amount{
+	width:100%;
 }

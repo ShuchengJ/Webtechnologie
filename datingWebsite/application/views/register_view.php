@@ -22,7 +22,6 @@
 			
 		</div>
 		
-		
 		<div class='registerForm'>
 			Birthday <br>
 			<input type='number' name='day' id='day' maxlength='2' size='4' min="1" max="31" placeholder='day' required/>

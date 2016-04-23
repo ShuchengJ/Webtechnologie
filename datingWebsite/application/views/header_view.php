@@ -7,11 +7,11 @@
 <link rel="stylesheet" href="<?php echo base_url();?>jquery-ui.min.css">
 <script src="<?php echo base_url();?>jquery-ui.min.js"></script>
 
-<title>Datadateorsomething</title>
+<title>DateDate</title>
 </head>
 <body>
 <div class="header">
-	<a href="<?php echo base_url();?>index.php/home" class="home" >WebsiteName</a>
+	<a href="<?php echo base_url();?>index.php/home" class="home" >DateDate</a>
 	<div class="menu"> 
 	<?php 
 		echo '<a href="'.base_url().'index.php/home"><span>Home</span></a>';
@@ -19,9 +19,9 @@
 		echo '<a href="'.base_url().'index.php/login"><span>Login</span></a>';
 		echo '<a href="'.base_url().'index.php/register"><span>Register</span></a>';
 		}else{
-		echo '<a href="'.base_url().'index.php/profile">profile</a>';
+		echo '<a href="'.base_url().'index.php/profile">Profile</a>';
 		echo '<a href="'.base_url().'index.php/like"><span>Like</span></a>';
-		echo '<a href="'.base_url().'index.php/likedby"><span>Liked by</span></a>';
+		echo '<a href="'.base_url().'index.php/likedby"><span>LikedBy</span></a>';
 		echo '<a href="'.base_url().'index.php/mutual"><span>Mutual</span></a>';
 		echo '<a href="'.base_url().'index.php/home/logout">Logout</a>';
 		

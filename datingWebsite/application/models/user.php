@@ -115,11 +115,23 @@ class User extends CI_Model {
 	}
 	
 	function getRandomMatch(){
-		$this->db->select('nickname, gender,month,day,year,email');
+		$this->db->select('nickname,gender,month,day,year,email,description,brands');
 		$this->db->from('users');
-		$query = $this -> db -> get();
+		$query1 = $this -> db -> get();
+		$result1 = $query1->result_array();
 		
-		$result = $query->result_array();
+		$this->db->select();
+		$this->db->from('personalities');
+		for ($x = 0; $x < sizeof($result1); $x++){
+			$this->db->or_where('id',$result1[$x]['email']);
+		}
+		$query2 = $this -> db -> get();
+		$result2 = $query2->result_array();
+		
+		$result = array();
+		for ($x = 0; $x < sizeof($result2); $x++){
+			array_push($result, array_merge($result1[$x],$result2[$x]));
+		}
 		shuffle($result);
 		return array_slice($result, 0,6);
 	}
@@ -132,6 +144,17 @@ class User extends CI_Model {
 					'tf'=>100 - $personality['tf'],
 					'jp'=>100 - $personality['jp']);
 		$data = array('interest'=>$gender, 
+				'age'=>$age,
+				'brands'=>$brands,
+				'personality'=>$ownPersonality,
+				'wanted'=>$personality);
+		return $this->getMatch($data, $iteration, false);
+	}
+	
+	// For the anonymous user
+	// Update iteration to get the next six.
+	function getSearchedCompleteMatch($gender, $age, $brands, $ownPersonality, $personality, $iteration){
+		$data = array('interest'=>$gender,
 				'age'=>$age,
 				'brands'=>$brands,
 				'personality'=>$ownPersonality,
@@ -163,7 +186,6 @@ class User extends CI_Model {
 				'agemax'=>$data['agemax'],
 				'ageReal'=>$data['age']
 		);
-		
 		
 		return $this->getMatch($data1, $iteration, true);
 	}
@@ -214,7 +236,7 @@ class User extends CI_Model {
 		for ($y = 0; $y < sizeof($order); $y++){
 			$answer[$y] = $result[array_search($order[$y], array_column($result, 'email'))];
 		}
-	
+		
 		return array_slice($answer, $iteration * 6, $iteration * 6 + 6);
 	}
 	
@@ -278,7 +300,7 @@ class User extends CI_Model {
 		$agerange = explode(" ", $ageran);
 		$minage = $agerange[0];
 		$maxage = $agerange[2];
-		
+
 		if($data['interest'] != 'Both')
 			$this->db->where('gender',$data['interest']);
 		$this->db->where('age >=', $minage);

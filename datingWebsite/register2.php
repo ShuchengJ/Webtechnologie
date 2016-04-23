@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="jquery-ui.min.css">
 <script src="jquery-ui.min.js"></script>
 
-<title>Datadateorsomething</title>
+<title>DateDate</title>
 </head>
 <body>
 <div class="header">
