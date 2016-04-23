@@ -44,7 +44,7 @@ echo "<tr><td>Brands</td><td>$brands</td></tr>";
 </div>
 <form method="post" action="userDetail/like">
 <?php
-echo '<input type="submit" value="like">';
+echo '<input class="button" type="submit" value="like">';
  ?>
 </form>
 
