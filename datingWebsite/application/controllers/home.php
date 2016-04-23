@@ -18,6 +18,7 @@ class Home extends CI_Controller {
 		}else{
 			$data['loggedin'] = FALSE;
 		}
+		$this->session->set_userdata('searchstep',0);
 		$this->load->view('Header_view',$data);
 		$this->load->view('Home_view',$data);
 		
@@ -29,7 +30,8 @@ class Home extends CI_Controller {
 		if(!$loggedin){
 		$profiles = $this->user->getRandomMatch();
 		}else{
-			$profiles = $this->user->getCompleteMatch($this->session->userdata('profile'),0);
+			$profiles = $this->user->getCompleteMatch($this->session->userdata('profile'),$this->session->userdata('searchstep'));
+			$this->session->set_userdata('searchstep',$this->session->userdata('searchstep') + 1);
 		}
 		for ($x = 0; $x < count($profiles); $x++) {
 			if($loggedin){
@@ -79,6 +81,7 @@ class Home extends CI_Controller {
 				'ns'=>$this->input->post('PersonNS'),
 				'tf'=>$this->input->post('PersonFT'),
 				'jp'=>$this->input->post('PersonJP'));
+		
 		if($this->session->userdata('logged_in')){
 			$status = $this->checkLikes($profiles[$x]['email']);
 			$data = $this->session->userdata('profile');
@@ -86,9 +89,11 @@ class Home extends CI_Controller {
 					'ns'=>100 - $data['ownNS'],
 					'tf'=>100 - $data['ownTF'],
 					'jp'=>100 - $data['ownJP']);
+			
 			$profiles = $this->user->getSearchedCompleteMatch($this->input->post("gender"),
-			$this->input->post("age"), $this->input->post("brands"), $ownPersonality, $personality, 0);
+			$this->input->post("age"), $this->input->post("brands"), $ownPersonality, $personality,0);
 		}
+		
 		else{
 			$profiles = $this->user->getSearchedMatch($this->input->post("gender"),
 			$this->input->post("age"), $this->input->post("brands"), $personality, 0);

@@ -82,7 +82,7 @@ if(session_id() == ''){
 		<br><br>
   	</fieldset>
 	
-	 <input type="submit" value="Search">
+	 <input class="button" type="submit" value="Search">
 	</form>
 	</div>
 	<div class="matchesWrapper">
@@ -111,8 +111,7 @@ if(session_id() == ''){
 	<div class="match" id='5' onClick="document.forms['matchForm5'].submit()"> No more results!</div>
 	</form>
 	</div>
-	
-	<div class='zomaar'></div>
+	<button class="button" id='zomaar'>More</button>
 	</div>
 </div>
 </body>

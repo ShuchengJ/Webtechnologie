@@ -16,7 +16,7 @@ body {
 .header{
 	background-color:yellow;
 	background-image:url(headerphoto.jpg);
-	height:75px;
+	height:76px;
 	text-align:center;
 	width:100%;
 }
@@ -303,4 +303,14 @@ label{
 
 #amount{
 	width:100%;
+}
+
+.zomaar{
+	clear:both;
+}
+
+.images{
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
 }

@@ -27,7 +27,7 @@ $(document).ready(function () {
 	    		}else{
 	    			$image = '../picture'+data[i].gender+'.png';
 	    		}
-	    		$(".match#"+i).html("<img src='" + $image + "' height=150px width=150px id=" + i + "><br>" +
+	    		$(".match#"+i).html("<img src='" + $image + "' class=images height=150px width=150px id=" + i + "><br>" +
 	    				matchString(data));
 	    		
 	    		$(".match#"+i).addClass("status"+data[i].status);
@@ -35,7 +35,7 @@ $(document).ready(function () {
 	    		
 	    	}else{
 	    	for(i = 0; i < data.length; i++){
-	    		$(".match#"+i).html("<img src='../picture"+data[i].gender+".png' height=150px width=150px id=" + i + "><br>" +
+	    		$(".match#"+i).html("<img src='../picture"+data[i].gender+".png' class=images height=150px width=150px id=" + i + "><br>" +
 	    				matchString(data));
 	    		}
 	    	}
@@ -62,12 +62,12 @@ $(document).ready(function () {
 	    	    		}else{
 	    	    			$image = '../picture'+data[i].gender+'.png';
 	    	    		}
-	    	    		$(".match#"+i).html("<a href='home/detailUser'> <img src='" + $image + "' height=150px width=150px>" +
+	    	    		$(".match#"+i).html("<a href='home/detailUser'> <img src='" + $image + "' class=images height=150px width=150px>" +
 	    	    				matchString(data));
 	    	    		}
 	    	    	}else{
 	    	    	for(i = 0; i < data.length; i++){
-	    	    		$(".match#"+i).html("<img src='../picture"+data[i].gender+".png' height=150px width=150px><br>" +
+	    	    		$(".match#"+i).html("<img src='../picture"+data[i].gender+".png' class=images height=150px width=150px><br>" +
 	    	    				matchString(data));
 	    	    		}
 	    	    	}
@@ -81,7 +81,7 @@ $(document).ready(function () {
 	            }
 	        });
 	    });
-	$('.zomaar').click(function(){
+	$('#zomaar').click(function(){
 		getMatches();
 	})
 	

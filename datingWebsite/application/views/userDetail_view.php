@@ -6,6 +6,20 @@ $extraversion = $ei < 49;
 $intuition = $ns < 49;
 $thinking = $tf < 49;
 $judging = $jp < 49;
+
+if($loggedin)
+{
+	//$file_headers = @get_headers(base_url().$email.".jpg");
+	//print_r($file_headers);
+	if(file_exists($email.".jpg")) 
+		echo "<img class=images src='../".$email.".jpg'>";
+	elseif (file_exists($email.".png"))
+		echo "<img class=images src='../".$email.".png'>";
+	else 
+		echo "<img class=images src='../picture".$gender.".png'>";
+}
+else 
+	echo "<img class=images src='../picture".$gender.".png'>";
 echo "<tr><td>Nickname</td><td>$nickname</td></tr>";
 echo "<tr><td>Gender</td><td>$gender</td></tr>";
 echo "<tr><td>Birthday</td><td>$day - $month - $year</td></tr>";
