@@ -91,7 +91,7 @@ $(document).ready(function () {
 			description = data[i].description.split('.')[0] + ".";
 		var brands = "None";
 		if(data[i].brands)
-			brands = data[i].brands.split(' ', 5).join(" ");
+			brands = data[i].brands.split(/\s+/, 6).join(" ");
 		return 	"Nickname: " + data[i].nickname + "<br>" + 
 				"Gender: " + data[i].gender + "<br>" + 
 				"Age: " + data[i].age + "<br>" + 
