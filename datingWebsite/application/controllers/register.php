@@ -81,11 +81,12 @@ class Register extends CI_Controller {
 	
 	function thirdStep(){
 		$userData = $this->session->userdata('userData');
-		
 		$config['upload_path'] = './';
 		$config['file_name'] = $userData['email'].".png";
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size'] = '20480';
+		$config['max_size']	= '20480';
+		$config['max_width']  = '1024';
+		$config['max_height']  = '768';
 		$this->load->library('upload', $config);
 		if (!$this->upload->do_upload())
 		{
