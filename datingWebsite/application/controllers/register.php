@@ -75,6 +75,10 @@ class Register extends CI_Controller {
 		$pers = $this->calcPersonality($this->input->post());
 		$data = $this->session->userdata('userData');
 		$data['personality'] = $pers;
+		$data['ownEI'] = $pers['ei'];
+		$data['ownNS'] = $pers['ns'];
+		$data['ownTF'] = $pers['tf'];
+		$data['ownJP'] = $pers['jp'];
 		$this->session->set_userdata('userData',$data);
 		$this->nextStep();
 	}

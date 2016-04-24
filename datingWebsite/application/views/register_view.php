@@ -33,7 +33,7 @@
 			<input type='radio' name='gender' value='Woman' required> Woman <br>
 			looking for: <br>
 			<input type='radio' name='interest' value='Man' required> Man
-			<input type='radio' name='interest' value='Woman' required checked> Woman
+			<input type='radio' name='interest' value='Woman' required checked> Woman<br>
 			<input type='radio' name='interest' value='Both' required> Both
 			
 			<br>
