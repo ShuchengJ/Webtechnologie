@@ -15,13 +15,13 @@ class Profile extends CI_Controller {
 		if($this -> session -> userdata('logged_in')){
 			$data['loggedin'] = $this->session->userdata('logged_in');
 			$data['email'] = $this->session->userdata('email');
+			$data['admin'] = $this->session->userdata('admin');
 			$profile = $this->user->getUserInformation($data['email']); //TODO:: this should be PK ID
 			$data['profile'] = $profile;
 			
 		}else{
 			$data['loggedin'] = FALSE;
 		}
-		 
 		$this->load->view('Header_view',$data);
 		$this->load->view('Profile_view',$data);	
 		//$this->load->view('upload_form', array('error' => ' ' ));

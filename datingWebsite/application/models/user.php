@@ -20,6 +20,33 @@ class User extends CI_Model {
 		}
 	}
 	
+	function admin($email)
+	{
+		$this->db->select('admin');
+		$this->db->from('users');
+		$this->db->where('email',$email);
+		$this->db->limit(1);
+	
+		$query = $this -> db -> get();
+	
+		if($query -> num_rows() == 1){
+			return $query->result()[0]->admin == "TRUE";
+		}else{
+			return false;
+		}
+	}
+	
+	function change($values)
+	{
+		$statement = 'UPDATE configuratie
+				
+				SET brands='.$this->db->escape($values['brands']).',
+					x='.$this->db->escape($values['x']).',
+					alpha='.$this->db->escape($values['alpha']);
+		
+		$query = $this->db->query($statement);
+	}
+	
 	function register($userData){
 		
 		$nickname = $userData['nickname'];
@@ -41,7 +68,7 @@ class User extends CI_Model {
 		$description = $userData['description'];
 		
 		$statement = 'INSERT INTO users (nickname,fullname,email,password,age,day,month,year,
-				gender,interest,agemin,agemax,brands,description) 
+				gender,interest,agemin,agemax,brands,description,admin) 
 				
 				VALUES ('.$this->db->escape($nickname).',
 						'.$this->db->escape($fullname).',
@@ -56,7 +83,8 @@ class User extends CI_Model {
 						'.$this->db->escape($agerange[0]).',
 						'.$this->db->escape($agerange[2]).',
 						'.$this->db->escape($brands).',
-						'.$this->db->escape($description).')';
+						'.$this->db->escape($description).',
+						'.$this->db->escape(FALSE).')';
 		
 		$query = $this->db->query($statement);
 		
@@ -212,7 +240,10 @@ class User extends CI_Model {
 		$secondResult = $secondQuery->result_array();
 		
 		//Sorting by distance
-		$x = 0.5;
+		$this->db->select('x');
+		$this->db->from('configuratie');
+		$thirdQuery = $this -> db -> get();
+		$x = (int)$thirdQuery->result_array()[0]["x"];
 		$order;
 		for ($y = 0; $y < sizeof($secondResult); $y++){
 			$own = array('ei'=>$secondResult[$y]['ownEI'],
@@ -228,7 +259,7 @@ class User extends CI_Model {
 			$atob = $this->getPersonalityDistance($data['personality'],$wanted);
 			$btoa = $this->getPersonalityDistance($own,$data['wanted']);
 			$maximum = max($atob, $btoa);
-			$order[$result[$y]['email']] = $x * $brandsDistance + $x * $maximum;
+			$order[$result[$y]['email']] = $x * $brandsDistance + (1 - $x) * $maximum;
 		}
 		asort($order, SORT_REGULAR);
 		$order = array_keys($order);
@@ -251,8 +282,26 @@ class User extends CI_Model {
 	
 	function getBrandsDistance($firstArray, $secondArray){
 		$overlap = array_intersect($firstArray, $secondArray);
-		$dividend = 2 * sizeof($overlap);
-		$divisor = sizeof($firstArray) + sizeof($secondArray);
+		$this->db->select('brands');
+		$this->db->from('configuratie');
+		$thirdQuery = $this -> db -> get();
+		$mode = (int)$thirdQuery->result_array()[0]["brands"];
+		if($mode == 1){
+			$dividend = 2 * sizeof($overlap);
+			$divisor = sizeof($firstArray) + sizeof($secondArray);
+		}
+		if($mode == 2){
+			$dividend = sizeof($overlap);
+			$divisor = sizeof($firstArray) + sizeof($secondArray) - sizeof($overlap);
+		}
+		if($mode == 3){
+			$dividend = sizeof($overlap);
+			$divisor = sqrt(sizeof($firstArray)) * sqrt(sizeof($secondArray));
+		}
+		if($mode == 4){
+			$dividend = sizeof($overlap);
+			$divisor = min(sizeof($firstArray), sizeof($secondArray));
+		}
 		if($divisor == 0)
 			$divisor = 1;
 		return 1 - ($dividend / $divisor);

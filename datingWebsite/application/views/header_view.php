@@ -24,6 +24,8 @@
 		echo '<a href="'.base_url().'index.php/likedby"><span>LikedBy</span></a>';
 		echo '<a href="'.base_url().'index.php/mutual"><span>Mutual</span></a>';
 		echo '<a href="'.base_url().'index.php/home/logout">Logout</a>';
+		if($admin)
+			echo '<a href="'.base_url().'index.php/configuration">Config</a>';
 		
 		echo $email;
 		}

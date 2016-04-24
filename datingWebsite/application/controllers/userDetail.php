@@ -16,7 +16,7 @@ class UserDetail extends CI_Controller {
 		if($this -> session -> userdata('logged_in')){
 			$data['loggedin'] = $this->session->userdata('logged_in');
 			$data['email'] = $this->session->userdata('email');
-				
+			$data['admin'] = $this->session->userdata('admin');
 		}else{
 			$data['loggedin'] = FALSE;
 		}
@@ -36,6 +36,9 @@ class UserDetail extends CI_Controller {
 	}
 	
 	function like(){
+		if(!$this -> session -> userdata('logged_in')){
+			redirect('Login','auto');
+		}
 		$currentUser = $this->session->userdata('profile')['email'];
 		$likedUser = $this->session->userdata('match')['email'];
 		$this->connections->addLike($currentUser,$likedUser);

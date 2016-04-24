@@ -14,15 +14,13 @@ class Home extends CI_Controller {
 		if($this -> session -> userdata('logged_in')){
 			$data['loggedin'] = $this->session->userdata('logged_in');
 			$data['email'] = $this->session->userdata('email');
-			
+			$data['admin'] = $this->session->userdata('admin');
 		}else{
 			$data['loggedin'] = FALSE;
 		}
 		$this->session->set_userdata('searchstep',0);
 		$this->load->view('Header_view',$data);
 		$this->load->view('Home_view',$data);
-		
-		
 	}
 	
 	function match_get(){

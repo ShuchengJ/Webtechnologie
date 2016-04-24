@@ -26,9 +26,9 @@ if(session_id() == ''){
 	<form id="search" method="post" action="home/search">
 	<fieldset class="searchfs">
 	<legend class="searchlegend">Gender</legend>
-	<input type="radio" name="gender" value="Man" required/> male
-	<input type="radio" name="gender" value="Woman"/> female 
-	<input type="radio" name="gender" value="Both" checked/> any<br>
+	<input type="radio" name="gender" value="Man" required/> Male
+	<input type="radio" name="gender" value="Woman"/> Female 
+	<input type="radio" name="gender" value="Both" checked/> Any<br>
 	</fieldset>
 	
 	<fieldset class="searchfs">

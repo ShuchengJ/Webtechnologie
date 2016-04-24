@@ -2,11 +2,6 @@
 <div>
 <table>
 <?php
-$extraversion = $ei < 49;
-$intuition = $ns < 49;
-$thinking = $tf < 49;
-$judging = $jp < 49;
-
 if($loggedin)
 {
 	//$file_headers = @get_headers(base_url().$email.".jpg");
@@ -25,16 +20,16 @@ echo "<tr><td>Description</td><td>$description</td></tr>";
 echo "<tr><td>Age preference</td><td>$agemin - $agemax</td></tr>";
 echo "<tr><td>Gender preference</td><td>$interest</td></tr>";
 echo "<tr><td>Personality</td><td>";
-if($extraversion) echo "Extraversion: $ei "; else echo "Introversion: $ei ";
-if($extraversion) echo "Intuition: $ns "; else echo "Sensing: $ns ";
-if($extraversion) echo "Thinking: $tf "; else echo "Feeling: $tf ";
-if($extraversion) echo "Judging: $jp "; else echo "Perceiving: $jp ";
+if($ownEI < 49) echo "Extraversion:".(100 - $ownEI)."% " ; else echo "Introversion: $ownEI% ";
+if($ownNS < 49) echo "Intuition:".(100 - $ownNS)."% " ; else echo "Sensing: $ownNS% ";
+if($ownTF < 49) echo "Thinking:".(100 - $ownTF)."% " ; else echo "Feeling: $ownTF% ";
+if($ownJP < 49) echo "Judging:".(100 - $ownJP)."% " ; else echo "Perceiving: $ownJP% ";
 echo "</td></tr>";
 echo "<tr><td>Personality preference</td><td>";
-if(!$extraversion) echo "Extraversion: $ownEI "; else echo "Introversion: $ownEI ";
-if(!$extraversion) echo "Intuition: $ownNS "; else echo "Sensing: $ownNS ";
-if(!$extraversion) echo "Thinking: $ownTF "; else echo "Feeling: $ownTF ";
-if(!$extraversion) echo "Judging: $ownJP "; else echo "Perceiving: $ownJP ";
+if($wantedEI < 49) echo "Extraversion:".(100 -  $wantedEI)."% " ; else echo "Introversion: $wantedEI% ";
+if($wantedNS < 49) echo "Intuition:".(100 -  $wantedNS)."% " ; else echo "Sensing: $wantedNS% ";
+if($wantedTF < 49) echo "Thinking:".(100 -  $wantedTF)."% " ; else echo "Feeling: $wantedTF% ";
+if($wantedJP < 49) echo "Judging:".(100 -  $wantedJP)."% " ; else echo "Perceiving: $wantedJP% ";
 echo "</td></tr>";
 echo "<tr><td>Brands</td><td>$brands</td></tr>";
 ?>
@@ -42,8 +37,12 @@ echo "<tr><td>Brands</td><td>$brands</td></tr>";
 </div>
 <form method="post" action="userDetail/like">
 <?php
-echo '<input class="button" type="submit" value="like">';
- ?>
+if($loggedin)
+	$text = "Like";
+else 
+	$text = "Login";
+echo '<input class="button" type="submit" value="'.$text.'">';
+?>
 </form>
 
 </div>

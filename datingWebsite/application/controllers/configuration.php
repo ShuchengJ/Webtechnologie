@@ -1,11 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Configuration extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
 		$this->load->library('session');
+		$this->load->model('user','',TRUE);
 	}
 	
 	function index()
@@ -15,13 +16,20 @@ class Login extends CI_Controller {
 			$data['email'] = $this->session->userdata('email');
 			$data['admin'] = $this->session->userdata('admin');
 		}else{
-			$data['loggedin'] = FALSE;
+			redirect('Login','auto');
 		}
-		
-		$this->load->database();
-		$this->load->helper(array('form'));
 		$this->load->view('Header_view',$data);
-		$this->load->view('Login_view');
+		$this->load->view('Configuration_view');
+	}
+	
+	function submit()
+	{
+		$values = array(
+				'brands'=>$this->input->post('brands'),
+				'x'=>$this->input->post('x'),
+				'alpha'=>$this->input->post('alpha'));
+		$this->user->change($values);
+		redirect('Home',auto);
 	}
 }
 ?>

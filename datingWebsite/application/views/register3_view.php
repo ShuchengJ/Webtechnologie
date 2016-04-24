@@ -68,8 +68,8 @@
 			<div class="right">Perceiving <input type="text" class="smallbox" id="PersonP" name="PersonP" value="0" readonly> </div>
 			<br><br>
 			
-			Upload a profile picture! (.jpg or .png)
-			<input type="file" name="userfile" accept=".jpg,.png">
+			Upload a profile picture!
+			<input type="file" name="userfile" accept=".gif,.jpg,.png">
 			<br><br>
 			
 			<input type="submit" value="CREATE!">

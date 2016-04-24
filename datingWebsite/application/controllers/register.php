@@ -16,9 +16,9 @@ class Register extends CI_Controller {
 	
 	function index()
 	{
-		
 		$this->load->helper(array('form'));
 		$data['loggedin'] = $this->session->userdata('logged_in');
+		$data['admin'] = $this->session->userdata('admin');
 		$this->load->view('Header_view',$data);
 		if(null == ($this->session->userdata('register_step'))){
 			$this->session->set_userdata('register_step','1');
@@ -84,14 +84,19 @@ class Register extends CI_Controller {
 		
 		$config['upload_path'] = './';
 		$config['file_name'] = $userData['email'].".png";
-		$config['allowed_types'] = 'jpg|png';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = '20480';
 		$this->load->library('upload', $config);
 		if (!$this->upload->do_upload())
 		{
-			$this->session->set_userdata('error',array('error'=>true,'errortext'=>$this->upload->display_errors()));
-			redirect('Register','auto');
+			if($_FILES['userfile']['error'] != 4)
+			{
+				$this->session->set_userdata('error',array('error'=>true,'errortext'=>$this->upload->display_errors()));
+				redirect('Register','auto');
+			}
 		}
 		$this->session->set_userdata('error',array('error'=>false));
+		$this->session->set_userdata('admin',FALSE);
 		
 		$userData['wanted'] = array('ei'=>$this->input->post('PersonEI'),
 				'ns'=>$this->input->post('PersonNS'),

@@ -14,11 +14,10 @@ class Like extends CI_Controller  {
 		if($this -> session -> userdata('logged_in')){
 			$data['loggedin'] = $this->session->userdata('logged_in');
 			$data['email'] = $this->session->userdata('email');
-			
+			$data['admin'] = $this->session->userdata('admin');
 		}else{
 			$data['loggedin'] = FALSE;
 		}
-		echo var_dump($this->session->userdata('like'));
 		$this->load->view('Header_view',$data);
 		$this->load->view('Like_view',$data);
 		
